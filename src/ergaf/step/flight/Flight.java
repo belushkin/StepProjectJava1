@@ -23,11 +23,11 @@ public class Flight implements Serializable {
 
     public void prettyFormat() {
         System.out.println("рейс:");
-        System.out.println("    from: " + from);
-        System.out.println("    to: " + to);
-        System.out.println("    at: " + at);
-        System.out.println("    id: " + id);
-        System.out.println("    freePlaces: " + freePlaces);
+        System.out.print("    from: " + from);
+        System.out.print("    to: " + to);
+        System.out.print("    at: " + at);
+        System.out.print("    id: " + id);
+        System.out.print("    freePlaces: " + freePlaces);
         System.out.println();
     }
 
