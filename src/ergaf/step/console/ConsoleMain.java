@@ -47,7 +47,6 @@ public class ConsoleMain {
         System.out.println("4 - Отменить бронирование.");
         System.out.println("5 - Мои рейсы.");
         System.out.println("6 - Выход.");
-        System.out.println("10 - Создать тестовые полеты.");
         System.out.print("введите номер действия: ");
     }
 }
