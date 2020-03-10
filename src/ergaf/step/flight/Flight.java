@@ -1,6 +1,7 @@
 package ergaf.step.flight;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Flight implements Serializable {
     String from;
@@ -31,5 +32,20 @@ public class Flight implements Serializable {
         System.out.println();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Flight flight = (Flight) o;
+        return freePlaces == flight.freePlaces &&
+                Objects.equals(from, flight.from) &&
+                Objects.equals(to, flight.to) &&
+                Objects.equals(at, flight.at) &&
+                Objects.equals(id, flight.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(from, to, at, id, freePlaces);
+    }
 }
