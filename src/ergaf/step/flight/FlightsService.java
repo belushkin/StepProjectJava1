@@ -28,4 +28,12 @@ public class FlightsService {
     public void saveFlightToCollection(Flight flight) {
         flightDao.saveFlightToCollection(flight);
     }
+
+    public void saveDataToFile(){
+        flightDao.saveDataToFile();
+    }
+
+    public void loadDataInFile(){
+        flightDao.loadDataInFile();
+    }
 }

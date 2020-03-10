@@ -16,14 +16,16 @@ public class ConsoleMain {
 
 
     public void startConsole(){
+        boolean running = true;
+        controller.loadDataInFile();
         if(controller.giveAllFlights().size() <= 0){
             controller.saveFlightToCollection(new Flight("kiev", "vladivostok", "15:20", "1", 20));
             controller.saveFlightToCollection(new Flight("kiev", "kharkov", "00:00", "2", 11));
             controller.saveFlightToCollection(new Flight("kiev", "odessa", "07:30", "3", 1));
         }
-        while (true){
+        while (running){
             printMainMenu();
-            String userIn = in.nextLine();
+            String userIn = in.nextLine().toLowerCase();
             switch (userIn) {
                 case "1":
                     controller.displayAllFlights();
@@ -33,6 +35,10 @@ public class ConsoleMain {
                     System.out.print("Введите айди рейса: ");
                     controller.giveFlightForId(in.nextLine()).prettyFormat();
                     in.nextLine();
+                    break;
+                case "exit":
+                    controller.saveDataToFile();
+                    running = false;
                     break;
 
             }

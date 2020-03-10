@@ -1,6 +1,8 @@
 package ergaf.step.flight;
 
-public class Flight {
+import java.io.Serializable;
+
+public class Flight implements Serializable {
     String from;
     String to;
     String at;

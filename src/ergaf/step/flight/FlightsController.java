@@ -24,4 +24,12 @@ public class FlightsController {
     public void saveFlightToCollection(Flight flight) {
         service.saveFlightToCollection(flight);
     }
+
+    public void saveDataToFile(){
+        service.saveDataToFile();
+    }
+
+    public void loadDataInFile(){
+        service.loadDataInFile();
+    }
 }

@@ -19,6 +19,7 @@ public class CollectionFlightDao implements FlightBaseInterface {
 
     @Override
     public List<Flight> giveAllFlights() {
+        logger.log(LogOrError.LOG, "был получен список полетов");
         return this.flights;
     }
 
@@ -49,6 +50,7 @@ public class CollectionFlightDao implements FlightBaseInterface {
 
             o.close();
             f.close();
+            logger.log(LogOrError.LOG, "база данных успешно сохранена в файл");
 
         } catch (IOException e ) {
             e.printStackTrace();
@@ -68,6 +70,7 @@ public class CollectionFlightDao implements FlightBaseInterface {
 
             o.close();
             f.close();
+            logger.log(LogOrError.LOG, "база данных успешно загружена из файла");
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
