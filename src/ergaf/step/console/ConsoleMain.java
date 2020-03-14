@@ -2,7 +2,10 @@ package ergaf.step.console;
 
 import ergaf.step.booking.BookingController;
 import ergaf.step.booking.BookingService;
-import ergaf.step.flight.*;
+import ergaf.step.flight.CollectionFlightDao;
+import ergaf.step.flight.Flight;
+import ergaf.step.flight.FlightsController;
+import ergaf.step.flight.FlightsService;
 
 import java.util.Scanner;
 
