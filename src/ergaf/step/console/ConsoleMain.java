@@ -2,13 +2,15 @@ package ergaf.step.console;
 
 import ergaf.step.booking.BookingController;
 import ergaf.step.booking.BookingService;
+import ergaf.step.booking.Input;
 import ergaf.step.flight.*;
 
 import java.util.Scanner;
 
 public class ConsoleMain {
-    Scanner in = new Scanner(System.in);
 
+    Scanner in = new Scanner(System.in);
+    Input subInput;
     FlightsController fcontroller;
     BookingController bookingController;
 
@@ -21,6 +23,7 @@ public class ConsoleMain {
     public ConsoleMain(FlightsController flightsController, BookingController bookingController) {
         this.fcontroller = flightsController;
         this.bookingController = bookingController;
+        this.subInput = new Input();
     }
 
     public void startConsole()
@@ -42,11 +45,20 @@ public class ConsoleMain {
                     break;
                 case "2":
                     System.out.print("Введите айди рейса: ");
-                    fcontroller.giveFlightForId(in.nextLine()).prettyFormat();
+                    fcontroller.getFlightById(in.nextLine()).prettyFormat();
                     ifMenu();
                     break;
                 case "3":
                     System.out.println("место назначения:");
+                    String destination = subInput.getStringInput();
+                    System.out.println("дата (год):");
+                    int bookingYear = subInput.getIntInputYear();
+                    System.out.println("дата (месяц):");
+                    int bookingMonth = subInput.getIntInputMonth();
+                    System.out.println("дата (день):");
+                    int bookingDay = subInput.getIntInputDay(bookingYear, bookingMonth);
+                    System.out.println("количество человек (сколько необходимо купить билетов):");
+                    int ticketsAmount = subInput.getIntInput();
                     ifMenu();
                     break;
                 case "4":
