@@ -2,15 +2,18 @@ package ergaf.step.console;
 
 import ergaf.step.booking.BookingController;
 import ergaf.step.booking.BookingService;
+import ergaf.step.booking.Input;
 import ergaf.step.flight.*;
 
 import java.util.Scanner;
 
 public class ConsoleMain {
-    Scanner in = new Scanner(System.in);
 
+    Scanner in = new Scanner(System.in);
+    Input subInput;
     FlightsController fcontroller;
     BookingController bookingController;
+    FlightCreator flightCreator;
 
 
     {
@@ -18,9 +21,16 @@ public class ConsoleMain {
     }
 
 
-    public ConsoleMain(FlightsController flightsController, BookingController bookingController) {
+    public ConsoleMain(
+            FlightsController flightsController,
+            BookingController bookingController,
+            FlightCreator flightCreator,
+            Input subInput
+    ) {
         this.fcontroller = flightsController;
         this.bookingController = bookingController;
+        this.subInput = subInput;
+        this.flightCreator = flightCreator;
     }
 
     public void startConsole()
@@ -29,7 +39,7 @@ public class ConsoleMain {
 
         fcontroller.loadData();
         if(fcontroller.getAllFlights().size() <= 0){
-            FlightCreator.createFlightBase(fcontroller);
+            flightCreator.createFlightBase();
         }
 
         while (running){
@@ -42,11 +52,21 @@ public class ConsoleMain {
                     break;
                 case "2":
                     System.out.print("Введите айди рейса: ");
-                    fcontroller.giveFlightForId(in.nextLine()).prettyFormat();
+                    int id = subInput.getIntInput();
+                    fcontroller.getFlightById(id).prettyFormat();
                     ifMenu();
                     break;
                 case "3":
                     System.out.println("место назначения:");
+                    String destination = subInput.getStringInput();
+                    System.out.println("дата (год):");
+                    int bookingYear = subInput.getIntInputYear();
+                    System.out.println("дата (месяц):");
+                    int bookingMonth = subInput.getIntInputMonth();
+                    System.out.println("дата (день):");
+                    int bookingDay = subInput.getIntInputDay(bookingYear, bookingMonth);
+                    System.out.println("количество человек (сколько необходимо купить билетов):");
+                    int ticketsAmount = subInput.getIntInput();
                     ifMenu();
                     break;
                 case "4":

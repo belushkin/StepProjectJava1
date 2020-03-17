@@ -17,13 +17,13 @@ public class CollectionFlightDao implements FlightBaseInterface {
     }
 
     @Override
-    public void saveFlightToCollection(Flight flight) {
+    public void saveFlight(Flight flight) {
         logger.log(LogOrError.LOG, "saveFlightToCollection");
         flights.add(flight);
     }
 
     @Override
-    public void clearFlightList() {
+    public void clearFlights() {
         logger.log(LogOrError.LOG, "clearFlightList");
         flights.clear();
     }

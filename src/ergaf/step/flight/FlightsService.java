@@ -37,15 +37,15 @@ public class FlightsService {
         flightDao.getAllFlights().forEach(Flight::prettyFormat);
     }
 
-    public Flight giveFlightForId(String id) {
+    public Flight getFlightById(int id) {
         List<Flight> flights = flightDao.getAllFlights().stream()
-                .filter(e -> e.id.equals(id))
+                .filter(e -> e.getId() == id)
                 .collect(Collectors.toList());
         return flights.get(0);
     }
 
-    public void saveFlightToCollection(Flight flight) {
-        flightDao.saveFlightToCollection(flight);
+    public void saveFlight(Flight flight) {
+        flightDao.saveFlight(flight);
     }
 
     public void saveData(ArrayList<Flight> flights){

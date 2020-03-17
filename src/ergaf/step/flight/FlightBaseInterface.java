@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface FlightBaseInterface {
     ArrayList<Flight> getAllFlights();
-    void saveFlightToCollection(Flight flight);
-    void clearFlightList();
+    void saveFlight(Flight flight);
+    void clearFlights();
     void loadData(ArrayList<Flight> flights);
 }

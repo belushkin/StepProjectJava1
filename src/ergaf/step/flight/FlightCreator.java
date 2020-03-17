@@ -1,25 +1,54 @@
 package ergaf.step.flight;
 
+import ergaf.step.exceptions.FlightCreationException;
+
+import java.text.ParseException;
+import java.util.Random;
+
 public class FlightCreator {
 
-    public static void createFlightBase(FlightsController fcontroller){
+    private static final int FLIGHTS_AMOUNT = 20;
+    private static final String START_DATE = "31/12/1998 10:00";
+    private static final String END_DATE = "31/12/2020 10:00";
 
-        fcontroller.saveFlightToCollection(new Flight("Киев", "Владивосток", "15:20", "1", 20));
-        fcontroller.saveFlightToCollection(new Flight("Киев", "Харьков", "00:00", "2", 11));
-        fcontroller.saveFlightToCollection(new Flight("Киев", "Одесса", "07:30", "3", 1));
-        fcontroller.saveFlightToCollection(new Flight("Киев", "Львов", "08:30", "4", 4));
-        fcontroller.saveFlightToCollection(new Flight("Киев", "Москва", "09:30", "5", 8));
-        fcontroller.saveFlightToCollection(new Flight("Киев", "Краков", "10:30", "6", 10));
-        fcontroller.saveFlightToCollection(new Flight("Киев", "Бостон", "11:30", "7", 1));
-        fcontroller.saveFlightToCollection(new Flight("Киев", "Питер", "12:30", "8", 1));
-        fcontroller.saveFlightToCollection(new Flight("Киев", "Нью-йорк", "16:30", "9", 1));
-        fcontroller.saveFlightToCollection(new Flight("Киев", "Врослав", "19:30", "10", 1));
-        fcontroller.saveFlightToCollection(new Flight("Киев", "Прага", "02:30", "11", 17));
-        fcontroller.saveFlightToCollection(new Flight("Киев", "Варшава", "08:00", "12", 28));
-        fcontroller.saveFlightToCollection(new Flight("Киев", "Вильнюс", "17:30", "13", 1));
-        fcontroller.saveFlightToCollection(new Flight("Киев", "Гамбург", "11:30", "14", 4));
-        fcontroller.saveFlightToCollection(new Flight("Киев", "Берлин", "00:30", "15", 2));
-        fcontroller.saveFlightToCollection(new Flight("Киев", "Минск", "03:30", "16", 21));
-        fcontroller.saveFlightToCollection(new Flight("Киев", "Будапешт", "15:30", "17", 2));
+    FlightsController flightsController;
+    DateGenerator dateGenerator;
+
+    public FlightCreator(FlightsController flightsController) {
+        this.flightsController = flightsController;
+    }
+
+    public void createFlightBase(){
+
+        Random random = new Random();
+
+        try {
+            dateGenerator = new DateGenerator(
+                    START_DATE,
+                    END_DATE
+            );
+        } catch (ParseException e) {
+            throw new FlightCreationException("Unable to create flight because of incorrect date time");
+        }
+
+        for (int i = 0; i < FLIGHTS_AMOUNT; i++) {
+            String from = Destination.values()[
+                    random.nextInt(Destination.values().length)
+                    ].name();
+
+            String to = Destination.values()[
+                    random.nextInt(Destination.values().length)
+                    ].name();
+
+            flightsController.saveFlight(
+                    new Flight(
+                            i+1,
+                            from,
+                            to,
+                            dateGenerator.getRandomFlightLocalDateTime(),
+                            random.nextInt(100)
+                    )
+            );
+        }
     }
 }
