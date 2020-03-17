@@ -30,7 +30,7 @@ public class DateGenerator {
         this.endTime = endDate.getTime();
     }
 
-    public LocalDateTime getFlightDateLocalDateTime() {
+    public LocalDateTime getRandomFlightLocalDateTime() {
         return Instant.ofEpochMilli(
                 getRandomTimeBetweenTwoDates()
         ).atZone(

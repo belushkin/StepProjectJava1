@@ -37,9 +37,9 @@ public class FlightsService {
         flightDao.getAllFlights().forEach(Flight::prettyFormat);
     }
 
-    public Flight getFlightById(String id) {
+    public Flight getFlightById(int id) {
         List<Flight> flights = flightDao.getAllFlights().stream()
-                .filter(e -> e.id.equals(id))
+                .filter(e -> e.getId() == id)
                 .collect(Collectors.toList());
         return flights.get(0);
     }

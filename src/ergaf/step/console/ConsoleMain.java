@@ -13,6 +13,7 @@ public class ConsoleMain {
     Input subInput;
     FlightsController fcontroller;
     BookingController bookingController;
+    FlightCreator flightCreator;
 
 
     {
@@ -20,10 +21,16 @@ public class ConsoleMain {
     }
 
 
-    public ConsoleMain(FlightsController flightsController, BookingController bookingController) {
+    public ConsoleMain(
+            FlightsController flightsController,
+            BookingController bookingController,
+            FlightCreator flightCreator,
+            Input subInput
+    ) {
         this.fcontroller = flightsController;
         this.bookingController = bookingController;
-        this.subInput = new Input();
+        this.subInput = subInput;
+        this.flightCreator = flightCreator;
     }
 
     public void startConsole()
@@ -32,7 +39,7 @@ public class ConsoleMain {
 
         fcontroller.loadData();
         if(fcontroller.getAllFlights().size() <= 0){
-            FlightCreator.createFlightBase(fcontroller);
+            flightCreator.createFlightBase();
         }
 
         while (running){
@@ -45,7 +52,8 @@ public class ConsoleMain {
                     break;
                 case "2":
                     System.out.print("Введите айди рейса: ");
-                    fcontroller.getFlightById(in.nextLine()).prettyFormat();
+                    int id = subInput.getIntInput();
+                    fcontroller.getFlightById(id).prettyFormat();
                     ifMenu();
                     break;
                 case "3":

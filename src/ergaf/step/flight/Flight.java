@@ -1,21 +1,42 @@
 package ergaf.step.flight;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Flight implements Serializable {
-    String from;
-    String to;
-    LocalDate at;
-    String id;
-    int freePlaces;
 
-    public Flight(String from, String to, LocalDate at, String id, int freePlaces) {
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public LocalDateTime getAt() {
+        return at;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getFreePlaces() {
+        return freePlaces;
+    }
+
+    private String from;
+    private String to;
+    private LocalDateTime at;
+    private int id;
+    private int freePlaces;
+
+    public Flight(int id, String from, String to, LocalDateTime at, int freePlaces) {
+        this.id = id;
         this.from = from;
         this.to = to;
         this.at = at;
-        this.id = id;
         this.freePlaces = freePlaces;
     }
 
@@ -26,14 +47,12 @@ public class Flight implements Serializable {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DateGenerator.DATE_PATTERN);
-        return "рейс: [" +
-                "from='" + from + '\'' +
-                ", to='" + to + '\'' +
-                ", at='" + at + '\'' +
-                ", id='" + id + '\'' +
-                ", freePlaces=" + freePlaces +
-                ", flightDate=" + formatter.format(at) +
-                ']';
+        return "flight: " +
+                "id= " + id  +
+                ", from= '" + from + '\'' +
+                ", to= '" + to + '\'' +
+                ", at= '" + formatter.format(at) + '\'' +
+                ", free places= " + freePlaces;
     }
 
 }

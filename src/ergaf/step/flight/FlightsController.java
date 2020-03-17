@@ -19,7 +19,7 @@ public class FlightsController {
         service.displayAllFlights();
     }
 
-    public Flight getFlightById(String id) {
+    public Flight getFlightById(int id) {
         return service.getFlightById(id);
     }
 
