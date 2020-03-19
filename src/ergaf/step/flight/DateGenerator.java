@@ -1,5 +1,8 @@
 package ergaf.step.flight;
 
+import ergaf.step.LogOrError;
+import ergaf.step.Logger;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -14,9 +17,6 @@ public class DateGenerator {
     private long beginTime;
     private long endTime;
 
-    private Date beginDate;
-    private Date endDate;
-
     public final static String DATE_PATTERN = "dd/MM/yyyy hh:mm";
 
     public DateGenerator(String beginTime, String endTime) throws ParseException {
@@ -28,6 +28,25 @@ public class DateGenerator {
 
         this.beginTime = beginDate.getTime();
         this.endTime = endDate.getTime();
+    }
+
+    public static LocalDate getFlightDate(int flightYear, int flightMonth, int flightDay) {
+
+        String flightDate = String.valueOf(flightDay) +
+                '/' +
+                flightMonth +
+                '/' +
+                flightYear +
+                " 00:00";
+
+        Date date;
+        try {
+            date = new SimpleDateFormat(DATE_PATTERN).
+                    parse(flightDate);
+        } catch (ParseException ignored) {
+            throw new RuntimeException("Can't parse flight date");
+        }
+        return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
     public LocalDateTime getRandomFlightLocalDateTime() {

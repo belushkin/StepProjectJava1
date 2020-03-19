@@ -13,8 +13,8 @@ class FlightsControllerTest {
     FlightsController flightsController;
     DateGenerator dateGenerator;
 
-    private final static int FLIGHTS_AMOUNT = 1;
-    private final static String TEST_DB = "step.test.data";
+    private final static int FLIGHTS_AMOUNT = 5;
+    private final static String TEST_DB = "flights.test.data";
 
     @BeforeEach
     public void executedBeforeEach() {

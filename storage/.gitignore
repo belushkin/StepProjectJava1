@@ -1,2 +1,4 @@
-step.data
-step.test.data
+flights.data
+flights.test.data
+bookings.data
+bookings.test.data

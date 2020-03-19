@@ -1,10 +1,12 @@
 package ergaf.step.flight;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FlightsController {
-    FlightsService service;
+    private FlightsService service;
 
     public FlightsController(FlightsService service) {
         this.service = service;
@@ -19,9 +21,13 @@ public class FlightsController {
         service.displayAllFlights();
     }
 
-//    public ArrayList<Flight> searchFlights() {
-//        return service.searchFlights();
-//    }
+    public void displayFlights(List<Flight> flights) {
+        service.displayFlights(flights);
+    }
+
+    public List<Flight> searchFlights(String to, LocalDate at, int ticketsAmount) {
+        return service.searchFlights(to, at, ticketsAmount);
+    }
 
     public Flight getFlightById(int id) {
         return service.getFlightById(id);

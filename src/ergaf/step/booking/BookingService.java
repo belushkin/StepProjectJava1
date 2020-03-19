@@ -1,10 +1,30 @@
 package ergaf.step.booking;
 
-import ergaf.step.flight.FlightDao;
+import java.util.Arrays;
 
 public class BookingService {
 
-    public BookingService(FlightDao flightDao) {
+    private BookingDao bookingDao;
 
+    private String filename = "bookings.data";
+
+    public BookingService(BookingDao bookingDao) {
+        this.bookingDao = bookingDao;
+    }
+
+    public BookingService(BookingDao bookingDao, String filename) {
+
+        this.bookingDao = bookingDao;
+        if (filename != null) {
+            this.filename = filename;
+        }
+    }
+
+    public int count() {
+        return bookingDao.getAllBookings().size();
+    }
+
+    public void addBooking(Booking... bookings) {
+        Arrays.stream(bookings).forEach(flight -> bookingDao.addBooking(flight));
     }
 }

@@ -6,6 +6,9 @@ import ergaf.step.booking.BookingService;
 import ergaf.step.booking.Input;
 import ergaf.step.flight.*;
 
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class ConsoleMain {
@@ -63,13 +66,22 @@ public class ConsoleMain {
                     System.out.println("место назначения:");
                     String destination = subInput.getStringInput();
                     System.out.println("дата (год):");
-                    int bookingYear = subInput.getIntInputYear();
+                    int flightYear = subInput.getIntInputYear();
                     System.out.println("дата (месяц):");
-                    int bookingMonth = subInput.getIntInputMonth();
+                    int flightMonth = subInput.getIntInputMonth();
                     System.out.println("дата (день):");
-                    int bookingDay = subInput.getIntInputDay(bookingYear, bookingMonth);
+                    int flightDay = subInput.getIntInputDay(flightYear, flightMonth);
                     System.out.println("количество человек (сколько необходимо купить билетов):");
                     int ticketsAmount = subInput.getIntInput();
+
+
+
+                    LocalDate desiredFlightDate = DateGenerator.getFlightDate(flightYear, flightMonth, flightDay);
+                    fcontroller.displayFlights(
+                            fcontroller.
+                                    searchFlights(destination, desiredFlightDate, ticketsAmount)
+                    );
+
                     ifMenu();
                     break;
                 case "4":
