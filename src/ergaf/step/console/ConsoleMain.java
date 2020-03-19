@@ -1,5 +1,6 @@
 package ergaf.step.console;
 
+import ergaf.step.Menu;
 import ergaf.step.booking.BookingController;
 import ergaf.step.booking.BookingService;
 import ergaf.step.booking.Input;
@@ -42,8 +43,9 @@ public class ConsoleMain {
             flightCreator.createFlightBase();
         }
 
-        while (running){
-            printMainMenu();
+        while (running) {
+            System.out.println(Menu.MENU);
+
             String userIn = in.nextLine().toLowerCase();
             switch (userIn) {
                 case "1":
@@ -85,16 +87,6 @@ public class ConsoleMain {
             }
 
         }
-    }
-
-    void printMainMenu(){
-        System.out.println("1 - Онайн-табло.");
-        System.out.println("2 - Посмотреть информацию о рейсе.");
-        System.out.println("3 - Поиск и бронировка рейса.");
-        System.out.println("4 - Отменить бронирование.");
-        System.out.println("5 - Мои рейсы.");
-        System.out.println("6 - Выход.");
-        System.out.print("введите номер действия: ");
     }
 
     void ifMenu(){
