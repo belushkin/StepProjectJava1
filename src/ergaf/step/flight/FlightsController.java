@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FlightsController {
-    FlightsService service;
+    private FlightsService service;
 
     public FlightsController(FlightsService service) {
         this.service = service;
