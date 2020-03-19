@@ -5,7 +5,7 @@ import ergaf.step.Logger;
 
 import java.util.ArrayList;
 
-public class CollectionFlightDao implements FlightBaseInterface {
+public class FlightDao implements FlightBaseInterface {
 
     private ArrayList<Flight> flights = new ArrayList<>();
     Logger logger = new Logger();
@@ -17,9 +17,15 @@ public class CollectionFlightDao implements FlightBaseInterface {
     }
 
     @Override
-    public void saveFlight(Flight flight) {
-        logger.log(LogOrError.LOG, "saveFlightToCollection");
-        flights.add(flight);
+    public void addFlight(Flight flight) {
+        logger.log(LogOrError.LOG, "addFlightToCollection");
+
+        int index = flights.indexOf(flight);
+        if (index == -1) {
+            flights.add(flight);
+        } else {
+            flights.set(index, flight);
+        }
     }
 
     @Override

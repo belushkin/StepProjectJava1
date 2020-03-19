@@ -1,10 +1,10 @@
 package ergaf.step.booking;
 
-import ergaf.step.flight.CollectionFlightDao;
+import ergaf.step.flight.FlightDao;
 
 public class BookingService {
 
-    public BookingService(CollectionFlightDao collectionFlightDao) {
+    public BookingService(FlightDao flightDao) {
 
     }
 }

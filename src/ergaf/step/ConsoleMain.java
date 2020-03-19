@@ -1,4 +1,4 @@
-package ergaf.step.console;
+package ergaf.step;
 
 import ergaf.step.Menu;
 import ergaf.step.booking.BookingController;
@@ -45,6 +45,7 @@ public class ConsoleMain {
 
         while (running) {
             System.out.println(Menu.MENU);
+            System.out.println("введите номер действия:");
 
             String userIn = in.nextLine().toLowerCase();
             switch (userIn) {
