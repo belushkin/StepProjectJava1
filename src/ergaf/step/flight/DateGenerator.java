@@ -36,9 +36,17 @@ public class DateGenerator {
                 '/' +
                 flightMonth +
                 '/' +
-                flightYear;
+                flightYear +
+                " 00:00";
 
-        return LocalDate.parse(flightDate);
+        Date date;
+        try {
+            date = new SimpleDateFormat(DATE_PATTERN).
+                    parse(flightDate);
+        } catch (ParseException ignored) {
+            throw new RuntimeException("Can't parse flight date");
+        }
+        return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
     public LocalDateTime getRandomFlightLocalDateTime() {
