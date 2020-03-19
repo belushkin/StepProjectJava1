@@ -1,17 +1,14 @@
 package ergaf.step.booking;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 public class Booking implements Serializable {
 
-    private String destination;
-    private LocalDateTime time;
+    private int flightId;
     private int seatsNumber;
 
-    public Booking(String destination, LocalDateTime time, int seatsNumber) {
-        this.destination = destination;
-        this.time = time;
+    public Booking(int flightId, int seatsNumber) {
+        this.flightId = flightId;
         this.seatsNumber = seatsNumber;
     }
 
@@ -19,11 +16,8 @@ public class Booking implements Serializable {
         return seatsNumber;
     }
 
-    public LocalDateTime getTime() {
-        return time;
+    public int getFlightId() {
+        return flightId;
     }
 
-    public String getDestination() {
-        return destination;
-    }
 }

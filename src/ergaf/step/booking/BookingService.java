@@ -20,6 +20,10 @@ public class BookingService {
         }
     }
 
+    public int count() {
+        return bookingDao.getAllBookings().size();
+    }
+
     public void addBooking(Booking... bookings) {
         Arrays.stream(bookings).forEach(flight -> bookingDao.addBooking(flight));
     }

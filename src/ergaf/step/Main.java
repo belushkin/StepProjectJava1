@@ -1,6 +1,7 @@
 package ergaf.step;
 
 import ergaf.step.booking.BookingController;
+import ergaf.step.booking.BookingDao;
 import ergaf.step.booking.BookingService;
 import ergaf.step.booking.Input;
 import ergaf.step.flight.FlightDao;
@@ -15,13 +16,14 @@ public class Main {
     public static void main(String[] args) {
 
         FlightDao flightDao = new FlightDao();
+        BookingDao bookingDao = new BookingDao();
 
         FlightsController flightsController = new FlightsController(
                 new FlightsService(flightDao)
         );
 
         BookingController bookingController = new BookingController(
-                new BookingService(flightDao)
+                new BookingService(bookingDao)
         );
 
         ConsoleMain console = new ConsoleMain(
