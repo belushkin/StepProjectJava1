@@ -19,12 +19,20 @@ public class FlightsController {
         service.displayAllFlights();
     }
 
+//    public ArrayList<Flight> searchFlights() {
+//        return service.searchFlights();
+//    }
+
     public Flight getFlightById(int id) {
         return service.getFlightById(id);
     }
 
-    public void saveFlight(Flight flight) {
-        service.saveFlight(flight);
+    public int count() {
+        return service.count();
+    }
+
+    public void addFlight(Flight... flight) {
+        service.addFlight(flight);
     }
 
     public void saveData(ArrayList<Flight> flights){

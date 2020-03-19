@@ -7,15 +7,17 @@ import java.util.Random;
 
 public class FlightCreator {
 
-    private static final int FLIGHTS_AMOUNT = 20;
     private static final String START_DATE = "31/12/1998 10:00";
     private static final String END_DATE = "31/12/2020 10:00";
+
+    private int flightAmount;
 
     FlightsController flightsController;
     DateGenerator dateGenerator;
 
-    public FlightCreator(FlightsController flightsController) {
+    public FlightCreator(FlightsController flightsController, int flightAmount) {
         this.flightsController = flightsController;
+        this.flightAmount = flightAmount;
     }
 
     public void createFlightBase(){
@@ -31,7 +33,7 @@ public class FlightCreator {
             throw new FlightCreationException("Unable to create flight because of incorrect date time");
         }
 
-        for (int i = 0; i < FLIGHTS_AMOUNT; i++) {
+        for (int i = 0; i < flightAmount; i++) {
             String from = Destination.values()[
                     random.nextInt(Destination.values().length)
                     ].name();
@@ -40,7 +42,7 @@ public class FlightCreator {
                     random.nextInt(Destination.values().length)
                     ].name();
 
-            flightsController.saveFlight(
+            flightsController.addFlight(
                     new Flight(
                             i+1,
                             from,
