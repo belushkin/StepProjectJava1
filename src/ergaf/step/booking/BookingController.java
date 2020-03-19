@@ -1,6 +1,8 @@
 package ergaf.step.booking;
 
 
+import java.util.ArrayList;
+
 public class BookingController {
     private BookingService bookingService;
 
@@ -11,6 +13,8 @@ public class BookingController {
     public void addBooking(Booking... booking) {
         bookingService.addBooking(booking);
     }
+
+
 
     public int count() {
         return bookingService.count();
