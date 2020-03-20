@@ -1,6 +1,5 @@
 package ergaf.step.io;
 
-import ergaf.step.Logger;
 import ergaf.step.flight.Flight;
 
 import java.io.*;
@@ -18,7 +17,7 @@ public class FileWorker {
             oos.close();
             fos.close();
         } catch (IOException ioe) {
-//            Logger.error("serialize exception");
+            Logger.error("serialize exception");
             ioe.printStackTrace();
         }
     }
@@ -41,12 +40,12 @@ public class FileWorker {
             ois.close();
             fis.close();
         } catch (FileNotFoundException | ClassNotFoundException e) {
-//            Logger.error("class or file not found exception");
+            Logger.error("class or file not found exception");
             System.out.println("Class or file not found");
             e.printStackTrace();
             return flights;
         } catch (IOException ioe) {
-//            Logger.error("io exception");
+            Logger.error("io exception");
             ioe.printStackTrace();
             return flights;
         }

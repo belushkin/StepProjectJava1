@@ -1,13 +1,10 @@
 package ergaf.step.booking;
 
-import ergaf.step.Logger;
-
 import java.util.ArrayList;
 
 public class BookingDao implements BookingBaseInterface {
 
     private ArrayList<Booking> bookings = new ArrayList<>();
-    Logger logger = new Logger();
 
     @Override
     public ArrayList<Booking> getAllBookings() {

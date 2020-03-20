@@ -1,15 +1,11 @@
 package ergaf.step.flight;
 
-import ergaf.step.LogOrError;
-import ergaf.step.Logger;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class DateGenerator {
