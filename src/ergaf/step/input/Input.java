@@ -1,4 +1,4 @@
-package ergaf.step.booking;
+package ergaf.step.input;
 
 import java.time.Year;
 import java.time.YearMonth;
@@ -21,6 +21,11 @@ public class Input {
         }
 
         return input;
+    }
+
+    public String getRawStringInput() {
+
+        return scanner.nextLine();
     }
 
     public String getStringInput() {
@@ -74,6 +79,17 @@ public class Input {
         int input = getInt();
         while (input <= 0 || input > yearMonthObject.lengthOfMonth()) {
             System.out.println("Month must be more than 0 and less than or equals " + yearMonthObject.lengthOfMonth());
+            input = getInt();
+        }
+
+        return input;
+    }
+
+    public int getIntSubInput() {
+
+        int input = getInt();
+        while (input < 0 || input > 1) {
+            System.out.println("Please choose wisely between 0 and 1");
             input = getInt();
         }
 
