@@ -49,15 +49,30 @@ public class ConsoleSearchAndBooking implements ConsoleInterface{
                         desiredFlightDate,
                         ticketsAmount
                 );
-                if (flights.size() > 0) {
-                    flightsController.displayFlights(flights);
-                } else {
+                if (flights.size() == 0) {
                     System.out.println("No flights found according to your data");
+                    break;
                 }
+
+                flightsController.displayFlights(flights);
+                System.out.println("Please select flights id:");
+                int flightId = input.getIntInputFlight(flightsController.count());
+                Flight flight = flightsController.getFlightById(flightId);
+                if (flight == null || flight.getFreePlaces() < ticketsAmount) {
+                    System.out.println("Flight has not been found or there is not enough seats");
+                    break;
+                }
+
+                System.out.println("Please specify "+ticketsAmount+ " users first name and last name");
+                String firstName;
+                String lastName;
+                for (int i = 0; i < ticketsAmount; i++) {
+                    System.out.println("Please enter first name for user #" + (i+1));
+                    firstName = input.getStringInput();
+                    lastName  = input.getStringInput();
+                }
+
                 userIn = input.getRawStringInput();
-                break;
-            case "2":
-                System.out.println("ANAL TABU");
                 break;
             default:
                 System.out.print("Поиск и бронировка рейса. ");

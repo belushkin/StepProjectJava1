@@ -61,6 +61,17 @@ public class Input {
         return input;
     }
 
+    public int getIntInputFlight(int count) {
+
+        int input = getInt();
+        while (input < 0 || input > count) {
+            System.out.println("ID рейса не існує");
+            input = getInt();
+        }
+
+        return input;
+    }
+
     public int getIntInputMonth() {
 
         int input = getInt();
