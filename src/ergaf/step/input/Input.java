@@ -23,6 +23,11 @@ public class Input {
         return input;
     }
 
+    public String getRawStringInput() {
+
+        return scanner.nextLine();
+    }
+
     public String getStringInput() {
 
         String value = scanner.nextLine();

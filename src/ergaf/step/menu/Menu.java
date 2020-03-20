@@ -1,4 +1,4 @@
-package ergaf.step;
+package ergaf.step.menu;
 
 public class Menu {
 
