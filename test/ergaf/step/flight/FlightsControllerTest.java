@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -101,4 +102,45 @@ class FlightsControllerTest {
         assertEquals(flights, flightsController.getAllFlights());
     }
 
+    @Test
+    public void search_flights_return_flight_when_called_with_correct_parameters() {
+        //given
+        Flight flight = flightsController.getFlightById(1);
+        //when
+        List<Flight> flights = flightsController.searchFlights(
+                flight.getTo(),
+                flight.getAt().toLocalDate(),
+                flight.getFreePlaces() - 1
+        );
+        //then
+        assertTrue(flights.size() > 0);
+    }
+
+    @Test
+    public void search_flights_return_no_flights_when_called_with_more_free_seats() {
+        //given
+        Flight flight = flightsController.getFlightById(1);
+        //when
+        List<Flight> flights = flightsController.searchFlights(
+                flight.getTo(),
+                flight.getAt().toLocalDate(),
+                flight.getFreePlaces() + 1
+        );
+        //then
+        assertEquals(0, flights.size());
+    }
+
+    @Test
+    public void search_flights_return_flights_when_called_with_equal_free_seats() {
+        //given
+        Flight flight = flightsController.getFlightById(1);
+        //when
+        List<Flight> flights = flightsController.searchFlights(
+                flight.getTo(),
+                flight.getAt().toLocalDate(),
+                flight.getFreePlaces()
+        );
+        //then
+        assertTrue(flights.size() > 0);
+    }
 }

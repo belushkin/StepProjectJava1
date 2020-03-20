@@ -3,11 +3,9 @@ package ergaf.step.flight;
 import ergaf.step.io.FileWorker;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -15,7 +13,7 @@ public class FlightsService {
 
     private FlightDao flightDao;
 
-    private String filename = "step.data";
+    private String filename = "flights.data";
 
     public FlightsService(FlightDao flightDao) {
 
@@ -35,18 +33,9 @@ public class FlightsService {
     }
 
     public List<Flight> searchFlights(String to, LocalDate at, int ticketsAmount) {
-        return getAllFlights().stream().filter(new Predicate<Flight>() {
-            @Override
-            public boolean test(Flight flight) {
-                if (
-                        flight.getTo().equals(to) &&
-                                flight.getAt().toLocalDate().equals(at) &&
-                                flight.getFreePlaces() >= ticketsAmount) {
-                    return true;
-                }
-                return false;
-            }
-        }).collect(Collectors.toList());
+        return getAllFlights().stream().filter(flight -> flight.getTo().equals(to) &&
+                flight.getAt().toLocalDate().equals(at) &&
+                flight.getFreePlaces() >= ticketsAmount).collect(Collectors.toList());
     }
 
     public void displayAllFlights() {

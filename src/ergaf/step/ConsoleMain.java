@@ -1,14 +1,10 @@
 package ergaf.step;
 
-import ergaf.step.Menu;
 import ergaf.step.booking.BookingController;
-import ergaf.step.booking.BookingService;
-import ergaf.step.booking.Input;
+import ergaf.step.input.Input;
 import ergaf.step.flight.*;
 
-import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class ConsoleMain {
@@ -17,93 +13,84 @@ public class ConsoleMain {
     Input subInput;
     FlightsController fcontroller;
     BookingController bookingController;
-    FlightCreator flightCreator;
-
-
-    {
-        System.out.println("создался екземпляр "+this.getClass().getSimpleName());
-    }
 
 
     public ConsoleMain(
             FlightsController flightsController,
             BookingController bookingController,
-            FlightCreator flightCreator,
             Input subInput
     ) {
         this.fcontroller = flightsController;
         this.bookingController = bookingController;
         this.subInput = subInput;
-        this.flightCreator = flightCreator;
     }
 
-    public void startConsole()
+    public String startConsole()
     {
-        boolean running = true;
+        String userIn = in.nextLine().toLowerCase();
 
-        fcontroller.loadData();
-        if(fcontroller.getAllFlights().size() <= 0){
-            flightCreator.createFlightBase();
+        switch (userIn) {
+            case "1":
+                fcontroller.displayAllFlights();
+                break;
+            case "2":
+                System.out.print("Введите айди рейса: ");
+                int id = subInput.getIntInput();
+                System.out.println(fcontroller.getFlightById(id).prettyFormat());
+                break;
+            case "3":
+                System.out.print("Поиск и бронировка рейса. ");
+                System.out.println(SubMenu.SUB_MENU);
+                int subMenuInput = subInput.getIntSubInput();
+                switch (subMenuInput) {
+                    case 0:
+                        System.out.println("вернуться в главное меню");
+                        break;
+                    case 1:
+                        System.out.println("место назначения:");
+                        String destination = subInput.getStringInput();
+                        System.out.println("дата (год):");
+                        int flightYear = subInput.getIntInputYear();
+                        System.out.println("дата (месяц):");
+                        int flightMonth = subInput.getIntInputMonth();
+                        System.out.println("дата (день):");
+                        int flightDay = subInput.getIntInputDay(flightYear, flightMonth);
+                        System.out.println("количество человек (сколько необходимо купить билетов):");
+                        int ticketsAmount = subInput.getIntInput();
+
+                        LocalDate desiredFlightDate = DateGenerator.getFlightDate(
+                                flightYear,
+                                flightMonth,
+                                flightDay
+                        );
+                        fcontroller.displayFlights(
+                                fcontroller.
+                                        searchFlights(
+                                                destination,
+                                                desiredFlightDate,
+                                                ticketsAmount
+                                        )
+                        );
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case "4":
+                System.out.print("4: ");
+                break;
+            case "5":
+                System.out.print("5: ");
+                break;
+            case "6":
+                fcontroller.saveData(fcontroller.getAllFlights());
+                break;
+            default:
+                System.out.println(Menu.MENU);
+                break;
+
         }
-
-        while (running) {
-            System.out.println(Menu.MENU);
-            System.out.println("введите номер действия:");
-
-            String userIn = in.nextLine().toLowerCase();
-            switch (userIn) {
-                case "1":
-                    fcontroller.displayAllFlights();
-                    ifMenu();
-                    break;
-                case "2":
-                    System.out.print("Введите айди рейса: ");
-                    int id = subInput.getIntInput();
-                    fcontroller.getFlightById(id).prettyFormat();
-                    ifMenu();
-                    break;
-                case "3":
-                    System.out.println("место назначения:");
-                    String destination = subInput.getStringInput();
-                    System.out.println("дата (год):");
-                    int flightYear = subInput.getIntInputYear();
-                    System.out.println("дата (месяц):");
-                    int flightMonth = subInput.getIntInputMonth();
-                    System.out.println("дата (день):");
-                    int flightDay = subInput.getIntInputDay(flightYear, flightMonth);
-                    System.out.println("количество человек (сколько необходимо купить билетов):");
-                    int ticketsAmount = subInput.getIntInput();
-
-
-
-                    LocalDate desiredFlightDate = DateGenerator.getFlightDate(flightYear, flightMonth, flightDay);
-                    fcontroller.displayFlights(
-                            fcontroller.
-                                    searchFlights(destination, desiredFlightDate, ticketsAmount)
-                    );
-
-                    ifMenu();
-                    break;
-                case "4":
-                    System.out.print("4: ");
-                    ifMenu();
-                    break;
-                case "5":
-                    System.out.print("5: ");
-                    ifMenu();
-                    break;
-                case "6":
-                    fcontroller.saveData(fcontroller.getAllFlights());
-                    running = false;
-                    break;
-
-            }
-
-        }
+        return userIn;
     }
 
-    void ifMenu(){
-        System.out.print("нажмите ввод что бы вернуться в главное меню: ");
-        in.nextLine();
-    }
 }
