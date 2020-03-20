@@ -54,6 +54,7 @@ public class ConsoleSearchAndBooking implements ConsoleInterface{
                 } else {
                     System.out.println("No flights found according to your data");
                 }
+                userIn = input.getRawStringInput();
                 break;
             case "2":
                 System.out.println("ANAL TABU");
