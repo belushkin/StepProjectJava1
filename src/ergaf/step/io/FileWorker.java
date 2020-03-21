@@ -51,6 +51,11 @@ public class FileWorker {
         return objects;
     }
 
+    public static boolean unlinkData(String fileName) {
+        File f= new File(getBasePath() + fileName);
+        return f.delete();
+    }
+
     private static String getBasePath() {
         return System.getProperty("user.dir") + "/storage/";
     }

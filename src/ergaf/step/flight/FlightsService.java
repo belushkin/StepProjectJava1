@@ -76,4 +76,13 @@ public class FlightsService {
     public void loadData(ArrayList<Flight> flights){
         flightDao.loadData(flights);
     }
+
+    public void clearFlights() {
+        flightDao.clearFlights();
+    }
+
+    public boolean unlinkData() {
+        return FileWorker.unlinkData(filename);
+    }
+
 }
