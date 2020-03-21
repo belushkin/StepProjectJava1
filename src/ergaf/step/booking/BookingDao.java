@@ -31,4 +31,10 @@ public class BookingDao implements BookingBaseInterface {
     public void loadData(ArrayList<Booking> bookings) {
         this.bookings = bookings;
     }
+
+    @Override
+    public boolean deleteBooking(Booking booking) {
+        return bookings.remove(booking);
+    }
+
 }

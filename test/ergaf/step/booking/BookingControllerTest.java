@@ -81,7 +81,7 @@ class BookingControllerTest {
     }
 
     @Test
-    public void display_bookings_by_user() {
+    public void display_flights_by_user() {
         //given
         User user = userController.addUser(new User("A", "B"));
         Flight flight = flightsController.getFlightById(1);
@@ -90,5 +90,58 @@ class BookingControllerTest {
         List<Booking> bookings = bookingController.getBookingsByUser(user);
         //then
         bookingController.displayFlights(bookings);
+    }
+
+    @Test
+    public void cancel_booking_works_properly() {
+        //given
+        User user = userController.addUser(new User("A", "B"));
+        Flight flight1 = flightsController.getFlightById(1);
+        Flight flight2 = flightsController.getFlightById(2);
+        bookingController.addBooking(new Booking(flight1, user));
+        bookingController.addBooking(new Booking(flight2, user));
+
+        //when
+        List<Booking> bookings = bookingController.getBookingsByUser(user);
+        assertEquals(2, bookings.size());
+
+        //then
+        assertTrue(bookingController.cancelBookingById(1));
+        assertEquals(flight2, bookingController.getBookingById(2).getFlight());
+    }
+
+    @Test
+    public void adding_equal_bookings_does_not_add_new_one() {
+        //given
+        User user = userController.addUser(new User("A", "B"));
+        Flight flight = flightsController.getFlightById(1);
+        bookingController.addBooking(new Booking(flight, user));
+        bookingController.addBooking(new Booking(flight, user));
+
+        //when
+        List<Booking> bookings = bookingController.getBookingsByUser(user);
+
+        //then
+        assertEquals(1, bookings.size());
+    }
+
+    @Test
+    public void display_bookings_by_user() {
+        //given
+        User user1 = userController.addUser(new User("A", "B"));
+        Flight flight1 = flightsController.getFlightById(1);
+        Flight flight2 = flightsController.getFlightById(2);
+        bookingController.addBooking(new Booking(flight1, user1));
+        bookingController.addBooking(new Booking(flight2, user1));
+
+        User user2 = userController.addUser(new User("B", "C"));
+        Flight flight3 = flightsController.getFlightById(3);
+        Flight flight4 = flightsController.getFlightById(4);
+        bookingController.addBooking(new Booking(flight3, user2));
+        bookingController.addBooking(new Booking(flight4, user2));
+
+        //when
+        //then
+        bookingController.displayBookings(bookingController.getAllBookings());
     }
 }

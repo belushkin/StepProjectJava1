@@ -73,4 +73,35 @@ public class BookingService {
                 collect(Collectors.toList());
     }
 
+    public boolean cancelBookingById(int id) {
+        return bookingDao.deleteBooking(getBookingById(id));
+    }
+
+    public void displayFlights(List<Booking> bookings) {
+        bookings.forEach(booking -> System.out.println(booking.getFlight().prettyFormat()));
+    }
+
+    public void displayBookings(List<Booking> bookings) {
+        bookings.
+                stream().
+                map(Booking::getUser).
+                distinct().
+                collect(Collectors.toList()).forEach(user -> {
+                    System.out.println(user.prettyFormat());
+                    bookings.
+                            stream().
+                            filter(
+                                    booking -> booking.getUser().equals(user)
+                            ).
+                            forEach(
+                                    booking -> System.out.println(
+                                            "\t" +
+                                                    booking.getId() +
+                                                    ") " +
+                                                    booking.getFlight().prettyFormat()
+                                    )
+                            );
+                });
+
+    }
 }

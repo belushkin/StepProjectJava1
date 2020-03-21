@@ -65,7 +65,18 @@ public class ConsoleMain implements ConsoleInterface{
 
                 break;
             case "4":
-                System.out.println();
+                System.out.println("Все бронирования пасажиров:");
+                bookingController.displayBookings(bookingController.getAllBookings());
+                System.out.println("Введите id бронирования для отмени:");
+                int cancelBookingId = subInput.getIntInput();
+
+                if (bookingController.getBookingById(cancelBookingId) != null) {
+                    bookingController.cancelBookingById(cancelBookingId);
+                    System.out.println("Бронирование отменено");
+                } else {
+                    System.out.println("Бронирование не найдено");
+                }
+                subInput.getRawStringInput();
                 break;
             case "5":
                 System.out.println("Укажите имя пасажира");

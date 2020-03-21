@@ -31,14 +31,13 @@ public class Booking implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Booking booking = (Booking) o;
-        return getId() == booking.getId() &&
-                flight.equals(booking.flight) &&
+        return flight.equals(booking.flight) &&
                 user.equals(booking.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), flight, user);
+        return Objects.hash(flight, user);
     }
 
     @Override

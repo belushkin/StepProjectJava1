@@ -7,4 +7,5 @@ public interface BookingBaseInterface {
     public Booking addBooking(Booking booking);
     public void clearBookings();
     public void loadData(ArrayList<Booking> bookings);
+    public boolean deleteBooking(Booking booking);
 }

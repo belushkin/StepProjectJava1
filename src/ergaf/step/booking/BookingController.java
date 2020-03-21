@@ -5,7 +5,6 @@ import ergaf.step.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class BookingController {
     private BookingService bookingService;
@@ -37,12 +36,24 @@ public class BookingController {
         );
     }
 
+    public Booking getBookingById(int id) {
+        return bookingService.getBookingById(id);
+    }
+
     public List<Booking> getBookingsByUser(User user) {
         return bookingService.getBookingsByUser(user);
     }
 
     public void displayFlights(List<Booking> bookings) {
-        bookings.forEach(booking -> System.out.println(booking.getFlight().prettyFormat()));
+        bookingService.displayFlights(bookings);
+    }
+
+    public void displayBookings(List<Booking> bookings) {
+        bookingService.displayBookings(bookings);
+    }
+
+    public boolean cancelBookingById(int id) {
+        return bookingService.cancelBookingById(id);
     }
 
 }
