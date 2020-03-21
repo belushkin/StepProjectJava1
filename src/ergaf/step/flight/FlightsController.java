@@ -37,6 +37,14 @@ public class FlightsController {
         return service.count();
     }
 
+    public void clearFlights() {
+        service.clearFlights();
+    }
+
+    public boolean unlinkData() {
+        return service.unlinkData();
+    }
+
     public void addFlight(Flight... flight) {
         service.addFlight(flight);
     }

@@ -38,14 +38,15 @@ public class Main {
         ConsoleMain console = new ConsoleMain(
                 flightsController,
                 bookingController,
-                new Input()
+                new Input(),
+                flightCreator
         );
 
         System.out.println(Menu.MENU);
         System.out.println("Please enter number from menu: ");
         String command = console.startConsole();
 
-        while (!command.equals("6")) { // 6 -> exit
+        while (!command.equals("7")) { // 7 -> exit
             System.out.println("\nPlease enter number from menu: ");
             command = console.startConsole();
         }

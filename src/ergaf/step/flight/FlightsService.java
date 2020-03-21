@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class FlightsService {
 
@@ -43,8 +42,7 @@ public class FlightsService {
     }
 
     public void displayFlights(List<Flight> flights) {
-        List<String> collect = IntStream.range(0, flights.size())
-                .mapToObj(index -> index+1 + ")\t" + flights.get(index).prettyFormat())
+        List<String> collect = flights.stream().map(flight -> flight.getId() + ")\t" + flight.prettyFormat())
                 .collect(Collectors.toList());
 
         collect.forEach(System.out::println);
@@ -78,4 +76,13 @@ public class FlightsService {
     public void loadData(ArrayList<Flight> flights){
         flightDao.loadData(flights);
     }
+
+    public void clearFlights() {
+        flightDao.clearFlights();
+    }
+
+    public boolean unlinkData() {
+        return FileWorker.unlinkData(filename);
+    }
+
 }

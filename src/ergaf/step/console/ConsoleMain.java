@@ -11,16 +11,19 @@ public class ConsoleMain implements ConsoleInterface{
     Input subInput;
     FlightsController fcontroller;
     BookingController bookingController;
+    FlightCreator flightCreator;
 
 
     public ConsoleMain(
             FlightsController flightsController,
             BookingController bookingController,
-            Input subInput
+            Input subInput,
+            FlightCreator flightCreator
     ) {
         this.fcontroller = flightsController;
         this.bookingController = bookingController;
         this.subInput = subInput;
+        this.flightCreator = flightCreator;
     }
 
     public String startConsole()
@@ -57,6 +60,15 @@ public class ConsoleMain implements ConsoleInterface{
                 System.out.print("5: ");
                 break;
             case "6":
+                if (fcontroller.unlinkData()) {
+                    System.out.println("Данние перегенерировани успешно.");
+                    fcontroller.clearFlights();
+                    flightCreator.createFlightBase();
+                } else {
+                    System.out.println("Не удалось перегенерировать данние.");
+                }
+                break;
+            case "7":
                 fcontroller.saveData(fcontroller.getAllFlights());
                 break;
             default:

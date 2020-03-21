@@ -71,13 +71,11 @@ public class Flight implements Serializable {
 
     public String prettyFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DateGenerator.DATE_PATTERN);
-        StringBuilder flight = new StringBuilder();
-        flight.append("\t" + String.format("%1$-" + 10 + "s", getFrom()));
-        flight.append("\t -> \t");
-        flight.append(String.format("%1$-" + 10 + "s", getTo()));
-        flight.append("\t" + formatter.format(getAt()) + " ");
-        flight.append("\t Free seats: " + getFreePlaces());
 
-        return flight.toString();
+        return "\t" + String.format("%1$-" + 10 + "s", getFrom()) +
+                "\t -> \t" +
+                String.format("%1$-" + 10 + "s", getTo()) +
+                "\t" + formatter.format(getAt()) + " " +
+                "\t Free seats: " + getFreePlaces();
     }
 }
