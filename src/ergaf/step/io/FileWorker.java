@@ -1,19 +1,17 @@
 package ergaf.step.io;
 
-import ergaf.step.flight.Flight;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileWorker {
 
-    public static void serialize(String fileName, List<Flight> flights) {
+    public static <T> void serialize(String fileName, List<T> objects) {
 
         try {
             FileOutputStream fos = new FileOutputStream(getBasePath() + fileName);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(flights);
+            oos.writeObject(objects);
             oos.close();
             fos.close();
         } catch (IOException ioe) {
@@ -22,20 +20,20 @@ public class FileWorker {
         }
     }
 
-    public static ArrayList<Flight> deserialize(String fileName) {
+    public static <T> ArrayList<T> deserialize(String fileName) {
 
-        ArrayList<Flight> flights = new ArrayList<>();
+        ArrayList<T> objects = new ArrayList<T>();
 
         File file = new File(getBasePath() + fileName);
         if (!file.exists()) {
-            return flights;
+            return objects;
         }
 
         try {
             FileInputStream fis = new FileInputStream(getBasePath() + fileName);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            flights = (ArrayList) ois.readObject();
+            objects = (ArrayList) ois.readObject();
 
             ois.close();
             fis.close();
@@ -43,14 +41,14 @@ public class FileWorker {
             Logger.error("class or file not found exception");
             System.out.println("Class or file not found");
             e.printStackTrace();
-            return flights;
+            return objects;
         } catch (IOException ioe) {
             Logger.error("io exception");
             ioe.printStackTrace();
-            return flights;
+            return objects;
         }
 
-        return flights;
+        return objects;
     }
 
     private static String getBasePath() {

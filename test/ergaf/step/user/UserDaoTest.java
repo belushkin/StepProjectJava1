@@ -11,7 +11,7 @@ class UserDaoTest {
         //given
         UserDao userDao = new UserDao();
         //when
-        userDao.addUser(new User("Mark", "Tven"));
+        userDao.addUser(new User("Mark", "Tven").setId(1));
         //then
         assertEquals(1, userDao.getAllUsers().size());
     }
@@ -21,8 +21,8 @@ class UserDaoTest {
         //given
         UserDao userDao = new UserDao();
         //when
-        userDao.addUser(new User("Mark", "Tven"));
-        userDao.addUser(new User("Mark", "Tven"));
+        userDao.addUser(new User("Mark", "Tven").setId(1));
+        userDao.addUser(new User("Mark", "Tven").setId(1));
         //then
         assertEquals(1, userDao.getAllUsers().size());
     }
@@ -32,8 +32,8 @@ class UserDaoTest {
         //given
         UserDao userDao = new UserDao();
         //when
-        userDao.addUser(new User("Mark", "Tven"));
-        userDao.addUser(new User("Mark", "Tven"));
+        userDao.addUser(new User("Mark", "Tven").setId(1));
+        userDao.addUser(new User("Mark", "Tven").setId(2));
         userDao.clearUsers();
         //then
         assertEquals(0, userDao.getAllUsers().size());
