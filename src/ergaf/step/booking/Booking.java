@@ -10,6 +10,15 @@ public class Booking implements Serializable {
 
     private int id;
     private Flight flight;
+
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
     private User user;
 
     public Booking(Flight flight, User user) {

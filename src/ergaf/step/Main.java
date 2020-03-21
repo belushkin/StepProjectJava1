@@ -38,6 +38,9 @@ public class Main {
         FlightCreator flightCreator = new FlightCreator(flightsController, FLIGHTS_AMOUNT);
 
         flightsController.loadData();
+        bookingController.loadData();
+        userController.loadData();
+
         if(flightsController.getAllFlights().size() <= 0){
             flightCreator.createFlightBase();
         }

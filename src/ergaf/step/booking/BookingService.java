@@ -1,6 +1,11 @@
 package ergaf.step.booking;
 
+import ergaf.step.io.FileWorker;
+import ergaf.step.user.User;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class BookingService {
 
@@ -47,4 +52,25 @@ public class BookingService {
     public ArrayList<Booking> getAllBookings() {
         return bookingDao.getAllBookings();
     }
+
+    public void saveData(ArrayList<Booking> bookings){
+        FileWorker.serialize(filename, bookings);
+    }
+
+    public ArrayList<Booking> prepareData() {
+        return FileWorker.deserialize(filename);
+    }
+
+    public void loadData(ArrayList<Booking> bookings){
+        bookingDao.loadData(bookings);
+    }
+
+    public List<Booking> getBookingsByUser(User user) {
+        return bookingDao.
+                getAllBookings().
+                stream().
+                filter(booking -> booking.getUser().equals(user)).
+                collect(Collectors.toList());
+    }
+
 }

@@ -5,6 +5,7 @@ import ergaf.step.menu.SubMenu;
 import ergaf.step.booking.BookingController;
 import ergaf.step.input.Input;
 import ergaf.step.flight.*;
+import ergaf.step.user.User;
 import ergaf.step.user.UserController;
 
 public class ConsoleMain implements ConsoleInterface{
@@ -49,7 +50,12 @@ public class ConsoleMain implements ConsoleInterface{
                 System.out.println(SubMenu.SUB_MENU);
 
                 ConsoleSearchAndBooking consoleSearchAndBooking =
-                        new ConsoleSearchAndBooking(subInput, fcontroller, userController);
+                        new ConsoleSearchAndBooking(
+                                subInput,
+                                fcontroller,
+                                userController,
+                                bookingController
+                        );
                 String command = consoleSearchAndBooking.startConsole();
 
                 while (!command.equals("0")) { // 0 -> exit
@@ -59,10 +65,23 @@ public class ConsoleMain implements ConsoleInterface{
 
                 break;
             case "4":
-                System.out.print("4: ");
+                System.out.println();
                 break;
             case "5":
-                System.out.print("5: ");
+                System.out.println("Укажите имя пасажира");
+                String firstName = subInput.getRawStringInput();
+                System.out.println("Укажите фамилию пасажира");
+                String lastName  = subInput.getRawStringInput();
+
+                User user = userController.getUserByFirstNameAndLastName(firstName, lastName);
+
+                if (user == null) {
+                    System.out.println("Пасажир не найден");
+                } else {
+                    bookingController.displayFlights(
+                            bookingController.getBookingsByUser(user)
+                    );
+                }
                 break;
             case "6":
                 fcontroller.unlinkData();

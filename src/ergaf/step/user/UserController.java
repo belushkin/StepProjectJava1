@@ -14,6 +14,10 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+    public User getUserByFirstNameAndLastName(String firstname, String lastname) {
+        return userService.getUserByFirstNameAndLastName(firstname, lastname);
+    }
+
     public int count() {
         return userService.count();
     }
@@ -32,4 +36,7 @@ public class UserController {
         );
     }
 
+    public ArrayList<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
 }

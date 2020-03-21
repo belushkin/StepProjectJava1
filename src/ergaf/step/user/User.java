@@ -27,14 +27,13 @@ public class User implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return getId() == user.getId() &&
-                getFirstName().equals(user.getFirstName()) &&
+        return getFirstName().equals(user.getFirstName()) &&
                 getLastName().equals(user.getLastName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName());
+        return Objects.hash(getFirstName(), getLastName());
     }
 
     @Override

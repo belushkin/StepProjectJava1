@@ -39,6 +39,15 @@ public class UserService {
                 orElse(null);
     }
 
+    public User getUserByFirstNameAndLastName(String firstname, String lastname) {
+        return userDao.
+                getAllUsers().
+                stream().
+                filter(user -> user.getFirstName().equals(firstname) && user.getLastName().equals(lastname)).
+                findFirst().
+                orElse(null);
+    }
+
     public ArrayList<User> getAllUsers() {
         return userDao.getAllUsers();
     }

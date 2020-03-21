@@ -1,7 +1,11 @@
 package ergaf.step.booking;
 
 
+import ergaf.step.user.User;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 
 public class BookingController {
     private BookingService bookingService;
@@ -22,4 +26,23 @@ public class BookingController {
     {
         return bookingService.getAllBookings();
     }
+
+    public void saveData(ArrayList<Booking> bookings){
+        bookingService.saveData(bookings);
+    }
+
+    public void loadData(){
+        bookingService.loadData(
+                bookingService.prepareData()
+        );
+    }
+
+    public List<Booking> getBookingsByUser(User user) {
+        return bookingService.getBookingsByUser(user);
+    }
+
+    public void displayFlights(List<Booking> bookings) {
+        bookings.forEach(booking -> System.out.println(booking.getFlight().prettyFormat()));
+    }
+
 }
