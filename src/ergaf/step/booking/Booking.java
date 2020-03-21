@@ -1,22 +1,60 @@
 package ergaf.step.booking;
 
+import ergaf.step.flight.Flight;
+import ergaf.step.user.User;
+
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Booking implements Serializable {
 
-    private int flightId;
-    private int userId;
+    private int id;
+    private Flight flight;
 
-    public Booking(int flightId, int userId) {
-        this.flightId = flightId;
-        this.userId = userId;
+    public Flight getFlight() {
+        return flight;
     }
 
-    public int getFlightId() {
-        return flightId;
+    public User getUser() {
+        return user;
     }
 
-    public int getUserId() {
-        return userId;
+    private User user;
+
+    public Booking(Flight flight, User user) {
+        this.flight = flight;
+        this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return flight.equals(booking.flight) &&
+                user.equals(booking.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(flight, user);
+    }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", flight=" + flight +
+                ", user=" + user +
+                '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public Booking setId(int id) {
+        this.id = id;
+        return this;
     }
 }

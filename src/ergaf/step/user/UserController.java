@@ -14,12 +14,16 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+    public User getUserByFirstNameAndLastName(String firstname, String lastname) {
+        return userService.getUserByFirstNameAndLastName(firstname, lastname);
+    }
+
     public int count() {
         return userService.count();
     }
 
-    public void addUser(User... user) {
-        userService.addUser(user);
+    public User addUser(User user) {
+        return userService.addUser(user);
     }
 
     public void saveData(ArrayList<User> users){
@@ -32,4 +36,7 @@ public class UserController {
         );
     }
 
+    public ArrayList<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
 }

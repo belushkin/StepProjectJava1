@@ -39,13 +39,23 @@ public class UserService {
                 orElse(null);
     }
 
+    public User getUserByFirstNameAndLastName(String firstname, String lastname) {
+        return userDao.
+                getAllUsers().
+                stream().
+                filter(user -> user.getFirstName().equals(firstname) && user.getLastName().equals(lastname)).
+                findFirst().
+                orElse(null);
+    }
+
     public ArrayList<User> getAllUsers() {
         return userDao.getAllUsers();
     }
 
-    public void addUser(User... users) {
-        Arrays.stream(users).forEach(user -> userDao.addUser(user.setId(getNextId())));
+    public User addUser(User user) {
+        return userDao.addUser(user.setId(getNextId()));
     }
+
     public int count() {
         return userDao.getAllUsers().size();
     }

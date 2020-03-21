@@ -12,13 +12,14 @@ public class BookingDao implements BookingBaseInterface {
     }
 
     @Override
-    public void addBooking(Booking booking) {
+    public Booking addBooking(Booking booking) {
         int index = bookings.indexOf(booking);
         if (index == -1) {
             bookings.add(booking);
         } else {
             bookings.set(index, booking);
         }
+        return booking;
     }
 
     @Override
@@ -30,4 +31,10 @@ public class BookingDao implements BookingBaseInterface {
     public void loadData(ArrayList<Booking> bookings) {
         this.bookings = bookings;
     }
+
+    @Override
+    public boolean deleteBooking(Booking booking) {
+        return bookings.remove(booking);
+    }
+
 }

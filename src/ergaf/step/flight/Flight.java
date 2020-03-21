@@ -33,8 +33,7 @@ public class Flight implements Serializable {
         return freePlaces;
     }
 
-    public Flight(int id, String from, String to, LocalDateTime at, int freePlaces) {
-        this.id = id;
+    public Flight(String from, String to, LocalDateTime at, int freePlaces) {
         this.from = from;
         this.to = to;
         this.at = at;
@@ -77,5 +76,10 @@ public class Flight implements Serializable {
                 String.format("%1$-" + 10 + "s", getTo()) +
                 "\t" + formatter.format(getAt()) + " " +
                 "\t Free seats: " + getFreePlaces();
+    }
+
+    public Flight setId(int id) {
+        this.id = id;
+        return this;
     }
 }

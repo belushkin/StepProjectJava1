@@ -1,6 +1,7 @@
 package ergaf.step.flight;
 
 import ergaf.step.io.FileWorker;
+import ergaf.step.user.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,9 +23,7 @@ public class FlightsService {
     public FlightsService(FlightDao flightDao, String filename) {
 
         this.flightDao = flightDao;
-        if (filename != null) {
-            this.filename = filename;
-        }
+        this.filename = filename;
     }
 
     public ArrayList<Flight> getAllFlights() {
@@ -57,8 +56,17 @@ public class FlightsService {
                 orElse(null);
     }
 
-    public void addFlight(Flight... flights) {
-        Arrays.stream(flights).forEach(flight -> flightDao.addFlight(flight));
+    public Flight addFlight(Flight flight) {
+        return flightDao.addFlight(flight.setId(getNextId()));
+    }
+
+    public int getNextId() {
+        int id = flightDao.getAllFlights().
+                stream().
+                mapToInt(Flight::getId).
+                reduce((first,second) -> second).orElse(0);
+
+        return id + 1;
     }
 
     public int count() {

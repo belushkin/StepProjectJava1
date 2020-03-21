@@ -10,6 +10,9 @@ import ergaf.step.flight.FlightCreator;
 import ergaf.step.flight.FlightsController;
 import ergaf.step.flight.FlightsService;
 import ergaf.step.menu.Menu;
+import ergaf.step.user.UserController;
+import ergaf.step.user.UserDao;
+import ergaf.step.user.UserService;
 
 public class Main {
 
@@ -19,6 +22,7 @@ public class Main {
 
         FlightDao flightDao = new FlightDao();
         BookingDao bookingDao = new BookingDao();
+        UserDao userDao = new UserDao();
 
         FlightsController flightsController = new FlightsController(
                 new FlightsService(flightDao)
@@ -28,9 +32,15 @@ public class Main {
                 new BookingService(bookingDao)
         );
 
+        UserController userController = new UserController(
+                new UserService(userDao)
+        );
         FlightCreator flightCreator = new FlightCreator(flightsController, FLIGHTS_AMOUNT);
 
         flightsController.loadData();
+        bookingController.loadData();
+        userController.loadData();
+
         if(flightsController.getAllFlights().size() <= 0){
             flightCreator.createFlightBase();
         }
@@ -38,6 +48,7 @@ public class Main {
         ConsoleMain console = new ConsoleMain(
                 flightsController,
                 bookingController,
+                userController,
                 new Input(),
                 flightCreator
         );

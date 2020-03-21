@@ -15,7 +15,7 @@ public class FlightDao implements FlightBaseInterface {
     }
 
     @Override
-    public void addFlight(Flight flight) {
+    public Flight addFlight(Flight flight) {
         Logger.info("addFlightToCollection");
 
         int index = flights.indexOf(flight);
@@ -24,6 +24,7 @@ public class FlightDao implements FlightBaseInterface {
         } else {
             flights.set(index, flight);
         }
+        return flight;
     }
 
     @Override

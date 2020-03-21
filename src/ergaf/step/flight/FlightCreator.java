@@ -26,7 +26,7 @@ public class FlightCreator {
     }
 
     public void createFlightBase(){
-
+        i=0;
         try {
             dateGenerator = new DateGenerator(
                     START_DATE,
@@ -39,7 +39,7 @@ public class FlightCreator {
         ArrayList<String> toList = new ArrayList<>();
         int fiftyPercent = (int) (flightAmount*0.5);
 
-        while (i <= fiftyPercent) {
+        while (i < fiftyPercent) {
             String to = getNextDestination();
             addFlight(i+1, "Kyiv", to);
             toList.add(to);
@@ -54,7 +54,6 @@ public class FlightCreator {
     private void addFlight(int i, String from, String to) {
         flightsController.addFlight(
                 new Flight(
-                        i,
                         from,
                         to,
                         dateGenerator.getRandomFlightLocalDateTime(),
