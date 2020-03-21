@@ -15,7 +15,7 @@ public class UserDao implements UserBaseInterface{
     }
 
     @Override
-    public void addUser(User user) {
+    public User addUser(User user) {
         Logger.info("addUserToCollection");
 
         int index = users.indexOf(user);
@@ -24,6 +24,7 @@ public class UserDao implements UserBaseInterface{
         } else {
             users.set(index, user);
         }
+        return user;
     }
 
     @Override

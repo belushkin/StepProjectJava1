@@ -1,6 +1,6 @@
 package ergaf.step.booking;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class BookingService {
 
@@ -15,16 +15,36 @@ public class BookingService {
     public BookingService(BookingDao bookingDao, String filename) {
 
         this.bookingDao = bookingDao;
-        if (filename != null) {
-            this.filename = filename;
-        }
+        this.filename = filename;
+    }
+
+    public Booking getBookingById(int id) {
+        return bookingDao.
+                getAllBookings().
+                stream().
+                filter(booking -> booking.getId() == id).
+                findFirst().
+                orElse(null);
     }
 
     public int count() {
-        return bookingDao.getAllBookings().size();
+        return getAllBookings().size();
     }
 
-    public void addBooking(Booking... bookings) {
-        Arrays.stream(bookings).forEach(flight -> bookingDao.addBooking(flight));
+    public int getNextId() {
+        int id = bookingDao.getAllBookings().
+                stream().
+                mapToInt(Booking::getId).
+                reduce((first,second) -> second).orElse(0);
+
+        return id + 1;
+    }
+
+    public Booking addBooking(Booking booking) {
+        return bookingDao.addBooking(booking.setId(getNextId()));
+    }
+
+    public ArrayList<Booking> getAllBookings() {
+        return bookingDao.getAllBookings();
     }
 }

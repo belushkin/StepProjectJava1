@@ -35,17 +35,4 @@ class BookingControllerTest {
         );
     }
 
-    @Test
-    void new_booking_should_be_added_to_dao_when_being_added() {
-        //given
-        Booking booking = new Booking(
-                1,
-                12
-        );
-        //when
-        bookingController.addBooking(booking);
-        //then
-        assertEquals(1, bookingController.count());
-    }
-
 }

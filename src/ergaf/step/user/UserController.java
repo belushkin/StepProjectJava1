@@ -18,8 +18,8 @@ public class UserController {
         return userService.count();
     }
 
-    public void addUser(User... user) {
-        userService.addUser(user);
+    public User addUser(User user) {
+        return userService.addUser(user);
     }
 
     public void saveData(ArrayList<User> users){

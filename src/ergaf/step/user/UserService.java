@@ -43,9 +43,10 @@ public class UserService {
         return userDao.getAllUsers();
     }
 
-    public void addUser(User... users) {
-        Arrays.stream(users).forEach(user -> userDao.addUser(user.setId(getNextId())));
+    public User addUser(User user) {
+        return userDao.addUser(user.setId(getNextId()));
     }
+
     public int count() {
         return userDao.getAllUsers().size();
     }

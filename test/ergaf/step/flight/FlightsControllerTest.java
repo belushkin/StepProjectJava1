@@ -14,7 +14,7 @@ class FlightsControllerTest {
     FlightsController flightsController;
     DateGenerator dateGenerator;
 
-    private final static int FLIGHTS_AMOUNT = 5;
+    private final static int FLIGHTS_AMOUNT = 20;
     private final static String TEST_DB = "flights.test.data";
 
     @BeforeEach
@@ -68,7 +68,6 @@ class FlightsControllerTest {
     public void save_flight_should_append_flight_to_the_dao() {
         //given
         Flight flight = new Flight(
-                1,
                 "Kyiv",
                 "Boyarka",
                 dateGenerator.getRandomFlightLocalDateTime(),

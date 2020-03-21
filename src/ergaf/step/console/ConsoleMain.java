@@ -5,6 +5,7 @@ import ergaf.step.menu.SubMenu;
 import ergaf.step.booking.BookingController;
 import ergaf.step.input.Input;
 import ergaf.step.flight.*;
+import ergaf.step.user.UserController;
 
 public class ConsoleMain implements ConsoleInterface{
 
@@ -12,16 +13,19 @@ public class ConsoleMain implements ConsoleInterface{
     FlightsController fcontroller;
     BookingController bookingController;
     FlightCreator flightCreator;
+    UserController userController;
 
 
     public ConsoleMain(
             FlightsController flightsController,
             BookingController bookingController,
+            UserController userController,
             Input subInput,
             FlightCreator flightCreator
     ) {
         this.fcontroller = flightsController;
         this.bookingController = bookingController;
+        this.userController = userController;
         this.subInput = subInput;
         this.flightCreator = flightCreator;
     }
@@ -38,13 +42,14 @@ public class ConsoleMain implements ConsoleInterface{
                 System.out.print("Введите айди рейса: ");
                 int id = subInput.getIntInput();
                 System.out.println(fcontroller.getFlightById(id).prettyFormat());
+                subInput.getRawStringInput();
                 break;
             case "3":
                 System.out.print("Поиск и бронировка рейса. ");
                 System.out.println(SubMenu.SUB_MENU);
 
                 ConsoleSearchAndBooking consoleSearchAndBooking =
-                        new ConsoleSearchAndBooking(subInput, fcontroller);
+                        new ConsoleSearchAndBooking(subInput, fcontroller, userController);
                 String command = consoleSearchAndBooking.startConsole();
 
                 while (!command.equals("0")) { // 0 -> exit
@@ -60,13 +65,10 @@ public class ConsoleMain implements ConsoleInterface{
                 System.out.print("5: ");
                 break;
             case "6":
-                if (fcontroller.unlinkData()) {
-                    System.out.println("Данние перегенерировани успешно.");
-                    fcontroller.clearFlights();
-                    flightCreator.createFlightBase();
-                } else {
-                    System.out.println("Не удалось перегенерировать данние.");
-                }
+                fcontroller.unlinkData();
+                fcontroller.clearFlights();
+                flightCreator.createFlightBase();
+                System.out.println("Данние перегенерировани успешно.");
                 break;
             case "7":
                 fcontroller.saveData(fcontroller.getAllFlights());

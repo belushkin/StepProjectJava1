@@ -1,7 +1,6 @@
 package ergaf.step.flight;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +44,7 @@ public class FlightsController {
         return service.unlinkData();
     }
 
-    public void addFlight(Flight... flight) {
+    public void addFlight(Flight flight) {
         service.addFlight(flight);
     }
 

@@ -10,18 +10,16 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
-    public void addBooking(Booking... booking) {
-        bookingService.addBooking(booking);
+    public Booking addBooking(Booking booking) {
+        return bookingService.addBooking(booking);
     }
-
-
 
     public int count() {
         return bookingService.count();
     }
 
-//    public ArrayList<Flight> getAllBookings()
-//    {
-//        return service.getAllFlights();
-//    }
+    public ArrayList<Booking> getAllBookings()
+    {
+        return bookingService.getAllBookings();
+    }
 }

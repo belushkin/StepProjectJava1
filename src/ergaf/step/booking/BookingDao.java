@@ -12,13 +12,14 @@ public class BookingDao implements BookingBaseInterface {
     }
 
     @Override
-    public void addBooking(Booking booking) {
+    public Booking addBooking(Booking booking) {
         int index = bookings.indexOf(booking);
         if (index == -1) {
             bookings.add(booking);
         } else {
             bookings.set(index, booking);
         }
+        return booking;
     }
 
     @Override
