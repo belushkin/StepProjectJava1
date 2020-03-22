@@ -56,4 +56,23 @@ class UserControllerTest {
         //then
         assertNull(userController.getUserByFirstNameAndLastName("Piters", "Pen"));
     }
+
+    @Test
+    public void get_user_by_login_and_password_return_user_when_exists() {
+        //given
+        User user1 = userController.addUser(new User("Piter", "Pen").setLogin("a").setPassword("b"));
+        //when
+        User user2 = userController.getUserByLoginAndPassword("a", "b");
+        //then
+        assertEquals(user1, user2);
+    }
+
+    @Test
+    public void get_user_by_login_and_password_does_not_return_user_when_non_exists() {
+        //given
+        userController.addUser(new User("Piter", "Pen").setLogin("a").setPassword("b"));
+        //when
+        //then
+        assertNull(userController.getUserByLoginAndPassword("aa", "b"));
+    }
 }

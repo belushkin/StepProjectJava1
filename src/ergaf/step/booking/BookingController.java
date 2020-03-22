@@ -56,4 +56,11 @@ public class BookingController {
         return bookingService.cancelBookingById(id);
     }
 
+    public boolean unlinkData() {
+        return bookingService.unlinkData();
+    }
+
+    public void clearBookings() {
+        bookingService.clearBookings();
+    }
 }

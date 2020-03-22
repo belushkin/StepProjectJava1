@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 public class FlightCreator {
 
     private static final String START_DATE = "01/01/2020 00:00";
-    private static final String END_DATE = "03/01/2020 00:00";
+    private static final String END_DATE = "02/01/2020 00:00";
     private String from;
     private int i = 0;
     Random random = new Random();
