@@ -24,8 +24,8 @@ public class FlightsController {
         service.displayFlights(flights);
     }
 
-    public List<Flight> searchFlights(String to, LocalDate at, int ticketsAmount) {
-        return service.searchFlights(to, at, ticketsAmount);
+    public List<Flight> searchFlights(String from, String to, LocalDate at, int ticketsAmount) {
+        return service.searchFlights(from, to, at, ticketsAmount);
     }
 
     public Flight getFlightById(int id) {

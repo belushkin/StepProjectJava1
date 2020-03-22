@@ -16,7 +16,7 @@ import ergaf.step.user.UserService;
 
 public class Main {
 
-    private static final int FLIGHTS_AMOUNT = 20;
+    private static final int FLIGHTS_AMOUNT = 30;
 
     public static void main(String[] args) {
 
