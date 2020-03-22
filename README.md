@@ -10,12 +10,19 @@ cross flights. After user log in and find appropriate flight it can be added to 
 in the flight and time satisfy the user. Saved bookings might be canceled and viewed later. 
 User can do logout and login later. 
 
+## Contributors
+| [Max Belushkin](https://github.com/belushkin) | [Mukhailo](https://github.com/Ergaf) |
+| :---: | :---: |
+| ![](./assets/img/image_3.png) | ![](./assets/img/image_4.png) |
+
+- @belushkin
+- @ergaf
 
 ## Technical details of the assessment
-- Application has 3 layers architecture: Controller, Service, DAO.
-- Database is implemented using ArrayList serialized to the binary file to the storage folder. These files are added to
+- Application has 3 layers architecture: **_Controller, Service, DAO_**.
+- Database is implemented using **_ArrayList_** serialized to the binary file to the storage folder. These files are added to
 _.gitignore_ so they are not presented in the repository.
-- Serializer was implemented using _generics_ in order to be able to serialize different entities.
+- **_Serializer_** was implemented using **_generics_** in order to be able to serialize different entities.
 - Application has 3 main different entities: 
 
 ```java
@@ -114,14 +121,5 @@ public ArrayList<User> getAllUsers() {
 
 ![FLights time table](./assets/img/image_2.png)
 
-## Contributors
-<table>
-    <tbody>
-        <tr>
-            <td>![](./assets/img/image_3.png)</td>
-            <td>![](./assets/img/image_4.png)</td>
-        </tr>
-    </tbody>
-</table>
-
-
+## Licence
+MIT
