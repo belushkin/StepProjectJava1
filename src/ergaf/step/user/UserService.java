@@ -51,6 +51,9 @@ public class UserService {
     }
 
     public User addUser(User user) {
+        if (getUserByFirstNameAndLastName(user.getFirstName(), user.getLastName()) != null) {
+            return user;
+        }
         return userDao.addUser(user.setId(getNextId()));
     }
 

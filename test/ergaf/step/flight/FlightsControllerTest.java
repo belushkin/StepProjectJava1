@@ -123,7 +123,7 @@ class FlightsControllerTest {
         List<Flight> flights = flightsController.searchFlights(
                 flight.getTo(),
                 flight.getAt().toLocalDate(),
-                flight.getFreePlaces() + 1
+                999
         );
         //then
         assertEquals(0, flights.size());

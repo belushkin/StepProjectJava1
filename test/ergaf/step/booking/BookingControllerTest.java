@@ -144,4 +144,18 @@ class BookingControllerTest {
         //then
         bookingController.displayBookings(bookingController.getAllBookings());
     }
+
+    @Test
+    public void login_and_password_rewrite_user_when_register_booking() {
+        //given
+        User user1 = userController.addUser(new User("A", "B").setLogin("a").setPassword("b"));
+        Flight flight = flightsController.getFlightById(1);
+        User user2 = userController.addUser(new User("A", "B"));
+        bookingController.addBooking(new Booking(flight, user2));
+        //when
+        //then
+        assertEquals(1, userController.getUserById(1).getId());
+        assertEquals("a", userController.getUserById(1).getLogin());
+        assertEquals("b", userController.getUserById(1).getPassword());
+    }
 }
