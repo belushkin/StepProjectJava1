@@ -1,7 +1,10 @@
 package ergaf.step.user;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Test;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
@@ -14,7 +17,7 @@ class UserServiceTest {
 
     private final static String TEST_DB = "users.test.data";
 
-    @BeforeEach
+    @Before
     public void executedBeforeEach() {
         userService = new UserService(
                 new UserDao(),
