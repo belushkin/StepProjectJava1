@@ -1,15 +1,15 @@
 package ergaf.step.user;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-class UserControllerTest {
+public class UserControllerTest {
 
     UserController userController;
 
-    @BeforeEach
+    @Before
     public void executedBeforeEach() {
         userController = new UserController(
                 new UserService(

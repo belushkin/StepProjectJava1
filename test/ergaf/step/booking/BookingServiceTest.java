@@ -7,22 +7,21 @@ import ergaf.step.flight.FlightsService;
 import ergaf.step.user.User;
 import ergaf.step.user.UserDao;
 import ergaf.step.user.UserService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.text.ParseException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-class BookingServiceTest {
+public class BookingServiceTest {
 
     BookingService bookingService;
     UserService userService;
     FlightsService flightsService;
     DateGenerator dateGenerator;
 
-    @BeforeEach
+    @Before
     public void executedBeforeEach() {
         bookingService = new BookingService(
                 new BookingDao()

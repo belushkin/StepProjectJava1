@@ -1,7 +1,7 @@
 package ergaf.step.flight;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-class FlightsControllerTest {
+public class FlightsControllerTest {
 
     FlightsController flightsController;
     DateGenerator dateGenerator;
@@ -17,7 +17,7 @@ class FlightsControllerTest {
     private final static int FLIGHTS_AMOUNT = 30;
     private final static String TEST_DB = "flights.test.data";
 
-    @BeforeEach
+    @Before
     public void executedBeforeEach() {
         flightsController = new FlightsController(
                 new FlightsService(

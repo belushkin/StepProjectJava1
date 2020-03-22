@@ -1,17 +1,17 @@
 package ergaf.step.flight;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-class FlightCreatorTest {
+public class FlightCreatorTest {
 
     private FlightsController flightsController;
     private final static String TEST_DB = "flights.test.data";
     private final static int FLIGHTS_AMOUNT = 20;
 
-    @BeforeEach
+    @Before
     public void executedBeforeEach() {
         flightsController = new FlightsController(
                 new FlightsService(

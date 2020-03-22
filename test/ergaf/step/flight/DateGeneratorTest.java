@@ -1,14 +1,15 @@
 package ergaf.step.flight;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.text.ParseException;
-import static org.junit.jupiter.api.Assertions.*;
 
-class DateGeneratorTest {
+import static org.junit.Assert.*;
+
+public class DateGeneratorTest {
 
     @Test
-    void getDateString() {
+    public void getDateString() {
         try {
             for (int x = 0; x < 7; x++) {
                 DateGenerator dateGenerator = new DateGenerator(
