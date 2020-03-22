@@ -1,8 +1,5 @@
 package ergaf.step.flight;
 
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,7 +9,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-class FlightsControllerTest {
+public class FlightsControllerTest {
 
     FlightsController flightsController;
     DateGenerator dateGenerator;
