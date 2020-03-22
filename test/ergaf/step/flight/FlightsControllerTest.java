@@ -14,7 +14,7 @@ class FlightsControllerTest {
     FlightsController flightsController;
     DateGenerator dateGenerator;
 
-    private final static int FLIGHTS_AMOUNT = 20;
+    private final static int FLIGHTS_AMOUNT = 30;
     private final static String TEST_DB = "flights.test.data";
 
     @BeforeEach
@@ -68,7 +68,7 @@ class FlightsControllerTest {
     public void save_flight_should_append_flight_to_the_dao() {
         //given
         Flight flight = new Flight(
-                "Kyiv",
+                FlightCreator.DEPARTURE,
                 "Boyarka",
                 dateGenerator.getRandomFlightLocalDateTime(),
                 55
@@ -107,6 +107,7 @@ class FlightsControllerTest {
         Flight flight = flightsController.getFlightById(1);
         //when
         List<Flight> flights = flightsController.searchFlights(
+                FlightCreator.DEPARTURE,
                 flight.getTo(),
                 flight.getAt().toLocalDate(),
                 flight.getFreePlaces() - 1
@@ -121,6 +122,7 @@ class FlightsControllerTest {
         Flight flight = flightsController.getFlightById(1);
         //when
         List<Flight> flights = flightsController.searchFlights(
+                FlightCreator.DEPARTURE,
                 flight.getTo(),
                 flight.getAt().toLocalDate(),
                 999
@@ -135,9 +137,27 @@ class FlightsControllerTest {
         Flight flight = flightsController.getFlightById(1);
         //when
         List<Flight> flights = flightsController.searchFlights(
+                FlightCreator.DEPARTURE,
                 flight.getTo(),
                 flight.getAt().toLocalDate(),
                 flight.getFreePlaces()
+        );
+        //then
+        assertTrue(flights.size() > 0);
+    }
+
+    @Test
+    public void search_cross_flights_return_them() {
+        //given
+        Flight flight = flightsController.getFlightById(1);
+        System.out.println(flight);
+        flightsController.displayAllFlights();
+        //when
+        List<Flight> flights = flightsController.searchFlights(
+                FlightCreator.DEPARTURE,
+                flight.getTo(),
+                flight.getAt().toLocalDate(),
+                1
         );
         //then
         assertTrue(flights.size() > 0);

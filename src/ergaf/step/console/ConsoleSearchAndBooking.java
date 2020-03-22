@@ -4,6 +4,7 @@ import ergaf.step.booking.Booking;
 import ergaf.step.booking.BookingController;
 import ergaf.step.flight.DateGenerator;
 import ergaf.step.flight.Flight;
+import ergaf.step.flight.FlightCreator;
 import ergaf.step.flight.FlightsController;
 import ergaf.step.input.Input;
 import ergaf.step.menu.Menu;
@@ -64,6 +65,7 @@ public class ConsoleSearchAndBooking implements ConsoleInterface{
                         flightDay
                 );
                 List<Flight> flights = flightsController.searchFlights(
+                        FlightCreator.DEPARTURE,
                         destination,
                         desiredFlightDate,
                         ticketsAmount

@@ -20,6 +20,8 @@ public class FlightCreator {
     FlightsController flightsController;
     DateGenerator dateGenerator;
 
+    public static String DEPARTURE = "Kyiv";
+
     public FlightCreator(FlightsController flightsController, int flightAmount) {
         this.flightsController = flightsController;
         this.flightAmount = flightAmount;
@@ -41,13 +43,17 @@ public class FlightCreator {
 
         while (i < fiftyPercent) {
             String to = getNextDestination();
-            addFlight(i+1, "Kyiv", to);
+            addFlight(i+1, DEPARTURE, to);
             toList.add(to);
             i++;
         }
         toList.forEach(s -> {
             i++;
-            addFlight(i, s, getNextDestination());
+            String to = getNextDestination();
+            if (s.equals(to)) {
+                to = getNextDestination();
+            }
+            addFlight(i, s, to);
         });
     }
 

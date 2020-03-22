@@ -1,11 +1,9 @@
 package ergaf.step.flight;
 
 import ergaf.step.io.FileWorker;
-import ergaf.step.user.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,8 +28,45 @@ public class FlightsService {
         return flightDao.getAllFlights();
     }
 
-    public List<Flight> searchFlights(String to, LocalDate at, int ticketsAmount) {
+    public List<Flight> searchFlights(String from, String to, LocalDate at, int ticketsAmount) {
+        // First search direct connections from Kyiv to Germany
+        List<Flight> directFlights = searchDirectFlights(from, to, at, ticketsAmount);
+
+        // Result list
+        List<Flight> result = new ArrayList<>(directFlights);
+
+        //Then search for flights to Germany not from Kyiv
+        List<Flight> excludeFlights = searchFlightsByDestinationExcludeFrom(from, to, at, ticketsAmount);
+
+        //Then loop over found flights and check do they have connections with Kyiv
+        List<Flight> crossFlights = excludeFlights.stream().filter(flight1 -> {
+            Flight flight = getAllFlights().stream().filter(flight2 -> {
+                return flight2.getFrom().equals(from) &&
+                        flight2.getTo().equals(flight1.getFrom()) &&
+                        flight2.getAt().toLocalDate().equals(at) &&
+                        flight2.getFreePlaces() >= ticketsAmount;
+            }).findFirst().orElse(null);
+            if (flight != null) {
+                result.add(flight);
+                return true;
+            }
+            return false;
+        }).collect(Collectors.toList());
+
+        result.addAll(crossFlights);
+        return result;
+    }
+
+    public List<Flight> searchDirectFlights(String from, String to, LocalDate at, int ticketsAmount) {
         return getAllFlights().stream().filter(flight -> flight.getTo().equals(to) &&
+                flight.getFrom().equals(from) &&
+                flight.getAt().toLocalDate().equals(at) &&
+                flight.getFreePlaces() >= ticketsAmount).collect(Collectors.toList());
+    }
+
+    public List<Flight> searchFlightsByDestinationExcludeFrom(String from, String to, LocalDate at, int ticketsAmount) {
+        return getAllFlights().stream().filter(flight -> flight.getTo().equals(to) &&
+                !flight.getFrom().equals(from) &&
                 flight.getAt().toLocalDate().equals(at) &&
                 flight.getFreePlaces() >= ticketsAmount).collect(Collectors.toList());
     }
