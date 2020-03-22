@@ -44,14 +44,17 @@ public class ConsoleSearchAndBooking implements ConsoleInterface{
                 System.out.println(Menu.MENU);
                 break;
             case "1":
-                System.out.println("Поиск и бронировка рейса. -> место назначения:");
-                String destination = input.getStringInput();
-                System.out.println("Поиск и бронировка рейса. -> дата (год):");
-                int flightYear = input.getIntInputYear();
-                System.out.println("Поиск и бронировка рейса. -> дата (месяц):");
-                int flightMonth = input.getIntInputMonth();
-                System.out.println("Поиск и бронировка рейса. -> дата (день):");
-                int flightDay = input.getIntInputDay(flightYear, flightMonth);
+                System.out.println("Поиск и бронировка рейса. -> место назначения (Germany):");
+                String destination = input.getRawStringInput();
+                if (destination.isEmpty()) {
+                    destination = "Germany";
+                }
+                System.out.println("Поиск и бронировка рейса. -> дата (год) (2020):");
+                int flightYear = input.getIntInputYear(2020);
+                System.out.println("Поиск и бронировка рейса. -> дата (месяц) (01):");
+                int flightMonth = input.getIntInputMonth(1);
+                System.out.println("Поиск и бронировка рейса. -> дата (день) (01):");
+                int flightDay = input.getIntInputDay(flightYear, flightMonth, 1);
                 System.out.println("Поиск и бронировка рейса. -> количество человек (сколько необходимо купить билетов):");
                 int ticketsAmount = input.getIntInput();
 
@@ -82,7 +85,6 @@ public class ConsoleSearchAndBooking implements ConsoleInterface{
                 }
 
                 System.out.println("Укажите имя и фамилию для "+ticketsAmount+ " пасажиров:");
-                input.getRawStringInput();
                 String firstName;
                 String lastName;
                 for (int i = 0; i < ticketsAmount; i++) {

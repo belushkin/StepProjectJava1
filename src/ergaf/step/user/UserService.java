@@ -1,10 +1,8 @@
 package ergaf.step.user;
 
-import ergaf.step.flight.Flight;
 import ergaf.step.io.FileWorker;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class UserService {
 
@@ -70,6 +68,25 @@ public class UserService {
 
     public void loadData(ArrayList<User> users){
         userDao.loadData(users);
+    }
+
+    public User getUserByLoginAndPassword(String login, String password) {
+        return userDao.
+                getAllUsers().
+                stream().
+                filter(user -> user.getLogin() != null).
+                filter(user -> user.getPassword() != null).
+                filter(user -> user.getLogin().equals(login) && user.getPassword().equals(password)).
+                findFirst().
+                orElse(null);
+    }
+
+    public boolean unlinkData() {
+        return FileWorker.unlinkData(filename);
+    }
+
+    public void clearUsers() {
+        userDao.clearUsers();
     }
 
 }

@@ -104,4 +104,12 @@ public class BookingService {
                 });
 
     }
+
+    public boolean unlinkData() {
+        return FileWorker.unlinkData(filename);
+    }
+
+    public void clearBookings() {
+        bookingDao.clearBookings();
+    }
 }

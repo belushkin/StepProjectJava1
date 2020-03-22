@@ -95,15 +95,39 @@ public class ConsoleMain implements ConsoleInterface{
                 }
                 break;
             case "6":
+                System.out.println("Мои бронирования:");
+
+                bookingController.displayFlights(
+                        bookingController.getBookingsByUser(userController.getCurrentUser())
+                );
+                break;
+            case "7":
                 fcontroller.unlinkData();
                 fcontroller.clearFlights();
+
+                bookingController.unlinkData();
+                bookingController.clearBookings();
+
+                userController.unlinkData();
+                userController.clearUsers();
+                userController.setCurrentUser(null);
+
                 flightCreator.createFlightBase();
                 System.out.println("Данние перегенерировани успешно.");
                 break;
-            case "7":
+            case "8":
+            case "9":
                 fcontroller.saveData(fcontroller.getAllFlights());
+                userController.setCurrentUser(null);
                 break;
             default:
+                if (userController.getCurrentUser() != null) {
+                    System.out.println(
+                            "\t\t\t\t\t\t\t\t\t\t\t\t\t\tАвторизований пользователь: '" +
+                                    userController.getCurrentUser().prettyFormat() +
+                                    "'"
+                    );
+                }
                 System.out.println(Menu.MENU);
                 break;
 

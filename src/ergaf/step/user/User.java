@@ -8,6 +8,8 @@ public class User implements Serializable {
     private int id;
     private String firstName;
     private String lastName;
+    private String login;
+    private String password;
 
     public User(String firstName, String lastName) {
         this.firstName = firstName;
@@ -42,6 +44,8 @@ public class User implements Serializable {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 
@@ -56,6 +60,24 @@ public class User implements Serializable {
 
     public User setId(int id) {
         this.id = id;
+        return this;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public User setLogin(String login) {
+        this.login = login;
+        return this;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public User setPassword(String password) {
+        this.password = password;
         return this;
     }
 }

@@ -6,12 +6,18 @@ public class UserController {
 
     private UserService userService;
 
+    private User currentUser;
+
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     public User getUserById(int id) {
         return userService.getUserById(id);
+    }
+
+    public User getUserByLoginAndPassword(String login, String password) {
+        return userService.getUserByLoginAndPassword(login, password);
     }
 
     public User getUserByFirstNameAndLastName(String firstname, String lastname) {
@@ -38,5 +44,21 @@ public class UserController {
 
     public ArrayList<User> getAllUsers() {
         return userService.getAllUsers();
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public boolean unlinkData() {
+        return userService.unlinkData();
+    }
+
+    public void clearUsers() {
+        userService.clearUsers();
     }
 }
