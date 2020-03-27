@@ -5,6 +5,7 @@ import ergaf.step.menu.SubMenu;
 import ergaf.step.booking.BookingController;
 import ergaf.step.input.Input;
 import ergaf.step.flight.*;
+import ergaf.step.passenger.PassengerController;
 import ergaf.step.user.User;
 import ergaf.step.user.UserController;
 
@@ -17,18 +18,21 @@ public class ConsoleMain implements ConsoleInterface{
     BookingController bookingController;
     FlightCreator flightCreator;
     UserController userController;
+    PassengerController passengerController;
 
 
     public ConsoleMain(
             FlightsController flightsController,
             BookingController bookingController,
             UserController userController,
+            PassengerController passengerController,
             Input subInput,
             FlightCreator flightCreator
     ) {
         this.fcontroller = flightsController;
         this.bookingController = bookingController;
         this.userController = userController;
+        this.passengerController = passengerController;
         this.subInput = subInput;
         this.flightCreator = flightCreator;
     }
@@ -61,7 +65,8 @@ public class ConsoleMain implements ConsoleInterface{
                                 subInput,
                                 fcontroller,
                                 userController,
-                                bookingController
+                                bookingController,
+                                passengerController
                         );
                 String command = consoleSearchAndBooking.startConsole();
 
@@ -72,8 +77,12 @@ public class ConsoleMain implements ConsoleInterface{
 
                 break;
             case "4":
-                System.out.println("Все бронирования пасажиров:");
-                bookingController.displayBookings(bookingController.getAllBookings());
+                System.out.println("Все бронирования:");
+                bookingController.displayFlights(
+                        bookingController.getBookingsByUser(
+                                userController.getCurrentUser()
+                        )
+                );
                 System.out.println("Введите id бронирования для отмени:");
                 int cancelBookingId = subInput.getIntInput();
 
@@ -118,6 +127,9 @@ public class ConsoleMain implements ConsoleInterface{
                 userController.unlinkData();
                 userController.clearUsers();
                 userController.setCurrentUser(null);
+
+                passengerController.unlinkData();
+                passengerController.clearPassengers();
 
                 flightCreator.createFlightBase();
                 System.out.println("Данние перегенерировани успешно.");
