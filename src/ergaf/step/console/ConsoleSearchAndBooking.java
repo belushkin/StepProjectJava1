@@ -1,18 +1,19 @@
 package ergaf.step.console;
 
-import ergaf.step.booking.Booking;
-import ergaf.step.booking.BookingController;
-import ergaf.step.flight.DateGenerator;
-import ergaf.step.flight.Flight;
-import ergaf.step.flight.FlightCreator;
-import ergaf.step.flight.FlightsController;
-import ergaf.step.input.Input;
+import ergaf.step.entities.Booking;
+import ergaf.step.controllers.BookingController;
+import ergaf.step.utils.DateGenerator;
+import ergaf.step.entities.Flight;
+import ergaf.step.controllers.FlightsController;
+import ergaf.step.utils.input.Input;
 import ergaf.step.menu.Menu;
 import ergaf.step.menu.SubMenu;
-import ergaf.step.user.User;
-import ergaf.step.user.UserController;
+import ergaf.step.entities.Passenger;
+import ergaf.step.controllers.PassengerController;
+import ergaf.step.controllers.UserController;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ConsoleSearchAndBooking implements ConsoleInterface{
@@ -21,17 +22,20 @@ public class ConsoleSearchAndBooking implements ConsoleInterface{
     private FlightsController flightsController;
     private UserController userController;
     private BookingController bookingController;
+    private PassengerController passengerController;
 
     public ConsoleSearchAndBooking(
             Input input,
             FlightsController flightsController,
             UserController userController,
-            BookingController bookingController
+            BookingController bookingController,
+            PassengerController passengerController
     ) {
         this.input = input;
         this.flightsController = flightsController;
         this.userController = userController;
         this.bookingController = bookingController;
+        this.passengerController = passengerController;
     }
 
     public String startConsole()
@@ -41,21 +45,28 @@ public class ConsoleSearchAndBooking implements ConsoleInterface{
             case "0":
                 userController.saveData(userController.getAllUsers());
                 bookingController.saveData(bookingController.getAllBookings());
+                passengerController.saveData(passengerController.getAllPassengers());
 
                 System.out.println(Menu.MENU);
                 break;
             case "1":
+
+                System.out.println("Поиск и бронировка рейса. -> место отправления (Kyiv):");
+                String departure = input.getRawStringInput();
+                if (departure.isEmpty()) {
+                    departure = "Kyiv";
+                }
                 System.out.println("Поиск и бронировка рейса. -> место назначения (Germany):");
                 String destination = input.getRawStringInput();
                 if (destination.isEmpty()) {
                     destination = "Germany";
                 }
-                System.out.println("Поиск и бронировка рейса. -> дата (год) (2020):");
-                int flightYear = input.getIntInputYear(2020);
-                System.out.println("Поиск и бронировка рейса. -> дата (месяц) (01):");
-                int flightMonth = input.getIntInputMonth(1);
-                System.out.println("Поиск и бронировка рейса. -> дата (день) (01):");
-                int flightDay = input.getIntInputDay(flightYear, flightMonth, 1);
+                System.out.println("Поиск и бронировка рейса. -> дата (год) ("+ LocalDateTime.now().getYear()+"):");
+                int flightYear = input.getIntInputYear(LocalDateTime.now().getYear());
+                System.out.println("Поиск и бронировка рейса. -> дата (месяц) ("+ LocalDateTime.now().getMonth().getValue()+"):");
+                int flightMonth = input.getIntInputMonth(LocalDateTime.now().getMonth().getValue());
+                System.out.println("Поиск и бронировка рейса. -> дата (день) ("+ LocalDateTime.now().getDayOfMonth()+"):");
+                int flightDay = input.getIntInputDay(flightYear, flightMonth, LocalDateTime.now().getDayOfMonth());
                 System.out.println("Поиск и бронировка рейса. -> количество человек (сколько необходимо купить билетов):");
                 int ticketsAmount = input.getIntInput();
 
@@ -65,7 +76,7 @@ public class ConsoleSearchAndBooking implements ConsoleInterface{
                         flightDay
                 );
                 List<Flight> flights = flightsController.searchFlights(
-                        FlightCreator.DEPARTURE,
+                        departure,
                         destination,
                         desiredFlightDate,
                         ticketsAmount
@@ -94,8 +105,8 @@ public class ConsoleSearchAndBooking implements ConsoleInterface{
                     firstName = input.getRawStringInput();
                     System.out.println("Укажите фамилию для пасажира #" + (i+1));
                     lastName  = input.getRawStringInput();
-                    User user = userController.addUser(new User(firstName, lastName));
-                    bookingController.addBooking(new Booking(flight, user));
+                    Passenger passenger = passengerController.addPassenger(new Passenger(firstName, lastName));
+                    bookingController.addBooking(new Booking(flight, passenger));
                     System.out.println("Бронировка сохранена");
                 }
                 break;

@@ -1,13 +1,14 @@
 package ergaf.step.console;
 
-import ergaf.step.booking.BookingController;
-import ergaf.step.flight.FlightCreator;
-import ergaf.step.flight.FlightsController;
-import ergaf.step.input.Input;
+import ergaf.step.controllers.BookingController;
+import ergaf.step.utils.FlightCreator;
+import ergaf.step.controllers.FlightsController;
+import ergaf.step.utils.input.Input;
 import ergaf.step.menu.AuthMenu;
 import ergaf.step.menu.Menu;
-import ergaf.step.user.User;
-import ergaf.step.user.UserController;
+import ergaf.step.controllers.PassengerController;
+import ergaf.step.entities.User;
+import ergaf.step.controllers.UserController;
 
 public class ConsoleAuth implements ConsoleInterface {
 
@@ -15,6 +16,7 @@ public class ConsoleAuth implements ConsoleInterface {
     private UserController userController;
     private FlightsController flightsController;
     private BookingController bookingController;
+    private PassengerController passengerController;
     private FlightCreator flightCreator;
 
     public ConsoleAuth(
@@ -22,11 +24,13 @@ public class ConsoleAuth implements ConsoleInterface {
             UserController userController,
             FlightsController flightsController,
             BookingController bookingController,
+            PassengerController passengerController,
             FlightCreator flightCreator) {
         this.input = input;
         this.userController = userController;
         this.flightsController = flightsController;
         this.bookingController = bookingController;
+        this.passengerController = passengerController;
         this.flightCreator = flightCreator;
     }
 
@@ -74,6 +78,7 @@ public class ConsoleAuth implements ConsoleInterface {
                             flightsController,
                             bookingController,
                             userController,
+                            passengerController,
                             input,
                             flightCreator
                     );
@@ -93,7 +98,7 @@ public class ConsoleAuth implements ConsoleInterface {
                 break;
             case "3":
                 userController.saveData(userController.getAllUsers());
-                System.out.println("давай до свиданья");
+                System.out.println("Exit");
                 break;
             default:
                 System.out.print("Приложение для бронировки авиабилетов.");

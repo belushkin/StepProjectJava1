@@ -1,12 +1,16 @@
 package ergaf.step.console;
 
+import ergaf.step.controllers.FlightsController;
 import ergaf.step.menu.Menu;
 import ergaf.step.menu.SubMenu;
-import ergaf.step.booking.BookingController;
-import ergaf.step.input.Input;
-import ergaf.step.flight.*;
-import ergaf.step.user.User;
-import ergaf.step.user.UserController;
+import ergaf.step.controllers.BookingController;
+import ergaf.step.utils.input.Input;
+import ergaf.step.utils.*;
+import ergaf.step.controllers.PassengerController;
+import ergaf.step.entities.User;
+import ergaf.step.controllers.UserController;
+
+import java.time.LocalDateTime;
 
 public class ConsoleMain implements ConsoleInterface{
 
@@ -15,18 +19,21 @@ public class ConsoleMain implements ConsoleInterface{
     BookingController bookingController;
     FlightCreator flightCreator;
     UserController userController;
+    PassengerController passengerController;
 
 
     public ConsoleMain(
             FlightsController flightsController,
             BookingController bookingController,
             UserController userController,
+            PassengerController passengerController,
             Input subInput,
             FlightCreator flightCreator
     ) {
         this.fcontroller = flightsController;
         this.bookingController = bookingController;
         this.userController = userController;
+        this.passengerController = passengerController;
         this.subInput = subInput;
         this.flightCreator = flightCreator;
     }
@@ -37,7 +44,12 @@ public class ConsoleMain implements ConsoleInterface{
 
         switch (userIn) {
             case "1":
-                fcontroller.displayAllFlights();
+                fcontroller.displayFlights(
+                        fcontroller.getFlightsByRange(
+                                LocalDateTime.now(),
+                                LocalDateTime.now().plusDays(1)
+                        )
+                );
                 break;
             case "2":
                 System.out.print("Введите айди рейса: ");
@@ -54,7 +66,8 @@ public class ConsoleMain implements ConsoleInterface{
                                 subInput,
                                 fcontroller,
                                 userController,
-                                bookingController
+                                bookingController,
+                                passengerController
                         );
                 String command = consoleSearchAndBooking.startConsole();
 
@@ -65,8 +78,12 @@ public class ConsoleMain implements ConsoleInterface{
 
                 break;
             case "4":
-                System.out.println("Все бронирования пасажиров:");
-                bookingController.displayBookings(bookingController.getAllBookings());
+                System.out.println("Все бронирования:");
+                bookingController.displayFlights(
+                        bookingController.getBookingsByUser(
+                                userController.getCurrentUser()
+                        )
+                );
                 System.out.println("Введите id бронирования для отмени:");
                 int cancelBookingId = subInput.getIntInput();
 
@@ -111,6 +128,9 @@ public class ConsoleMain implements ConsoleInterface{
                 userController.unlinkData();
                 userController.clearUsers();
                 userController.setCurrentUser(null);
+
+                passengerController.unlinkData();
+                passengerController.clearPassengers();
 
                 flightCreator.createFlightBase();
                 System.out.println("Данние перегенерировани успешно.");
